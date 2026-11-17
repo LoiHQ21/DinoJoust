@@ -1,0 +1,227 @@
+{
+  "generated_on": "2026-11-18",
+  "notice": "AI-generated visual references only; not 3D models, engine renders or proven gameplay",
+  "files": [
+    {
+      "path": "assets/animation/01_early_beast_lance_duel.gif",
+      "bytes": 739817,
+      "sha256": "e0504296e1dd8403ae90b65f3f968c8c1ae1bb6e4502d80b79ee712e5dd4c765",
+      "size_px": [
+        553,
+        309
+      ],
+      "image_format": "GIF",
+      "frames": 9,
+      "status": "HISTORIC_ANIMATION_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/archive_early/a_bright_colorful_stylized_3d_cartoon_game_scree.png",
+      "bytes": 2016130,
+      "sha256": "b6952ec3b99ff8df9e0bbb04350e956c4a96bef063185a1fb8c36a1721caea52",
+      "size_px": [
+        1672,
+        941
+      ],
+      "image_format": "PNG",
+      "status": "ARCHIVED_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/archive_early/a_detailed_cinematic_3d_game_screenshot_ui_conc.png",
+      "bytes": 2441179,
+      "sha256": "cf2ebc3dbcd5dd7ca6c530ff4698d12ef2e38c8c4302a799e6eee3d78a8ce6dc",
+      "size_px": [
+        1672,
+        941
+      ],
+      "image_format": "PNG",
+      "status": "ARCHIVED_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/archive_early/a_detailed_cinematic_game_design_document_gdd_p.png",
+      "bytes": 3028249,
+      "sha256": "4f33abcfdb18e3920fd2327b4b9bdfdf1e6eecbbbd1258cedb8b33876f8a4417",
+      "size_px": [
+        1536,
+        1024
+      ],
+      "image_format": "PNG",
+      "status": "ARCHIVED_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/archive_early/a_detailed_colorful_game_design_pitch_gdd_summ.png",
+      "bytes": 2519447,
+      "sha256": "581200104b61cf067a7dd9dacb641c51aa7270bfebc96071f36804936d1fdec0",
+      "size_px": [
+        1536,
+        1024
+      ],
+      "image_format": "PNG",
+      "status": "ARCHIVED_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/archive_early/a_detailed_colorful_game_design_presentation_coll.png",
+      "bytes": 2491006,
+      "sha256": "0f11550572900cb68f14b3cdc535b80f8a40e5ef5faa6879637c7267e6e4ba9a",
+      "size_px": [
+        1536,
+        1024
+      ],
+      "image_format": "PNG",
+      "status": "ARCHIVED_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/archive_early/a_detailed_highly_polished_game_design_pitch_boar.png",
+      "bytes": 2433716,
+      "sha256": "cadf25c60b4030308d292d3a929ff400e2d788734aea0f4371e8cb6050cf71a5",
+      "size_px": [
+        1536,
+        1024
+      ],
+      "image_format": "PNG",
+      "status": "ARCHIVED_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/archive_early/a_detailed_professional_game_design_document_gd.png",
+      "bytes": 2873691,
+      "sha256": "b5c72b36fa4178fd28351d1d176e46a4e454d7759e41ab7dd55377054bcaa408",
+      "size_px": [
+        1536,
+        1024
+      ],
+      "image_format": "PNG",
+      "status": "ARCHIVED_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/archive_early/a_highly_detailed_polished_game_design_document.png",
+      "bytes": 2975591,
+      "sha256": "3c1443414e202139e40e11c37db596bca6a0833b57d9636eb2038ab8aaf0b8c8",
+      "size_px": [
+        1536,
+        1024
+      ],
+      "image_format": "PNG",
+      "status": "ARCHIVED_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/archive_early/a_wide_colorful_polished_game_design_pitch_board.png",
+      "bytes": 2636843,
+      "sha256": "0ad21a6153584eddd8c01414ad213c0f7ff2b8f1c0a4188e6f45e76c6c56543e",
+      "size_px": [
+        1536,
+        1024
+      ],
+      "image_format": "PNG",
+      "status": "ARCHIVED_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/archive_kingshot/01_Duel_3D_SideView.png",
+      "bytes": 1838114,
+      "sha256": "b3fa9d478ba1f9c77f006cbf714b21a7d55ed017136e74086d44d39b8e143c0c",
+      "size_px": [
+        1600,
+        900
+      ],
+      "image_format": "PNG",
+      "status": "ARCHIVED_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/archive_kingshot/02_Campaign_Hub_3D_Diorama.png",
+      "bytes": 1597434,
+      "sha256": "0a6d0ab678e6854ef271f6429ac8bb4ffe92eeeeeb7e0472edda899362313828",
+      "size_px": [
+        1600,
+        900
+      ],
+      "image_format": "PNG",
+      "status": "ARCHIVED_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/archive_kingshot/03_Dinosaur_Roster_Stylized_Models.png",
+      "bytes": 569451,
+      "sha256": "f72e48a2bc4be2c41a0476658b4c103dcc65404cd39a20091e0af022506260a0",
+      "size_px": [
+        1600,
+        900
+      ],
+      "image_format": "PNG",
+      "status": "ARCHIVED_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/archive_kingshot/04_Draft_Reward_and_Loadout.png",
+      "bytes": 739944,
+      "sha256": "0c58eaafa761be3835824e6639ddc0946034ca90d6d75e40f934a2257a043801",
+      "size_px": [
+        1600,
+        900
+      ],
+      "image_format": "PNG",
+      "status": "ARCHIVED_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/archive_kingshot/05_Dinosaur_Attack_Concepts.png",
+      "bytes": 639083,
+      "sha256": "4763581f9b11ebab839c09934f3d63c39748864a2f5fa68e809a18ee4897b933",
+      "size_px": [
+        1600,
+        900
+      ],
+      "image_format": "PNG",
+      "status": "ARCHIVED_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/archive_kingshot/06_Arena_Terrain_Concepts.png",
+      "bytes": 600431,
+      "sha256": "5ba559e317ad4ba956974d299738b7a8c45297e5916f73c10ea9593a6fbb0462",
+      "size_px": [
+        1600,
+        900
+      ],
+      "image_format": "PNG",
+      "status": "ARCHIVED_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/current/01_joust_chase_camera.png",
+      "bytes": 2115071,
+      "sha256": "fb1ad940c142d7cc247bea554e54ee25fdfdc7f77637461df57e97f1a2c45d9c",
+      "size_px": [
+        1672,
+        941
+      ],
+      "image_format": "PNG",
+      "status": "CURRENT_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/current/02_rider_dino_impact.png",
+      "bytes": 2132790,
+      "sha256": "d3d30345089e788129b69fbbc6b48f115c84fdd4e2dca26f28eee1aec5f0e369",
+      "size_px": [
+        1672,
+        941
+      ],
+      "image_format": "PNG",
+      "status": "CURRENT_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/current/03_tournament_hub.png",
+      "bytes": 2400186,
+      "sha256": "c92347fd703f650ccf504937b0cd89c4b25e2c49113d0b5247e977bb48db89e3",
+      "size_px": [
+        1672,
+        941
+      ],
+      "image_format": "PNG",
+      "status": "CURRENT_CONCEPT"
+    },
+    {
+      "path": "assets/concepts/current/04_mount_rider_roster.png",
+      "bytes": 2150617,
+      "sha256": "08fd9ae6749673942802e5479a2b68299f77c4b2ec47b72730316cbfbaf260a1",
+      "size_px": [
+        1672,
+        941
+      ],
+      "image_format": "PNG",
+      "status": "CURRENT_CONCEPT"
+    }
+  ]
+}

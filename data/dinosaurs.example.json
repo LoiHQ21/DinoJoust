@@ -1,0 +1,174 @@
+{
+  "_status": "PROPOSED / illustrative starting values only; not balanced or engine-tested",
+  "schema_version": "0.1",
+  "dinosaurs": [
+    {
+      "id": "velociraptor",
+      "name": "Velociraptor",
+      "division": "LIGHT",
+      "normalized_mass": 1.0,
+      "saddle_height_index": 0.9,
+      "max_speed_index": 0.92,
+      "acceleration_index": 0.94,
+      "grip_index": 0.73,
+      "balance_index": 0.58,
+      "temperament": "aggressive",
+      "silhouette_family": "biped_small",
+      "signature": {
+        "id": "predator_snap",
+        "eligible_speed_index_range": [
+          0.35,
+          0.69
+        ],
+        "requires_proximity": true,
+        "telegraph_id": "tell_predator_snap",
+        "counterplay": "Brace/horn-first counter, out-range head, or outrun its precise window",
+        "once_per_pass": true
+      }
+    },
+    {
+      "id": "protoceratops",
+      "name": "Protoceratops",
+      "division": "LIGHT",
+      "normalized_mass": 1.16,
+      "saddle_height_index": 0.95,
+      "max_speed_index": 0.63,
+      "acceleration_index": 0.57,
+      "grip_index": 0.86,
+      "balance_index": 0.86,
+      "temperament": "stubborn",
+      "silhouette_family": "ceratopsian_small",
+      "signature": {
+        "id": "frill_guard",
+        "eligible_speed_index_range": [
+          0.18,
+          0.61
+        ],
+        "requires_proximity": true,
+        "telegraph_id": "tell_frill_guard",
+        "counterplay": "Aim above head protection, avoid direct horn/frill zone",
+        "once_per_pass": true
+      }
+    },
+    {
+      "id": "pachycephalosaurus",
+      "name": "Pachycephalosaurus",
+      "division": "LIGHT",
+      "normalized_mass": 1.14,
+      "saddle_height_index": 1.06,
+      "max_speed_index": 0.75,
+      "acceleration_index": 0.83,
+      "grip_index": 0.77,
+      "balance_index": 0.68,
+      "temperament": "impulsive",
+      "silhouette_family": "biped_small",
+      "signature": {
+        "id": "dome_headbutt",
+        "eligible_speed_index_range": [
+          0.45,
+          0.78
+        ],
+        "requires_proximity": true,
+        "telegraph_id": "tell_dome_headbutt",
+        "counterplay": "Stay outside narrow central head-contact corridor",
+        "once_per_pass": true
+      }
+    },
+    {
+      "id": "carnotaurus",
+      "name": "Carnotaurus",
+      "division": "MIDDLE",
+      "normalized_mass": 1.47,
+      "saddle_height_index": 1.47,
+      "max_speed_index": 0.89,
+      "acceleration_index": 0.88,
+      "grip_index": 0.65,
+      "balance_index": 0.63,
+      "temperament": "aggressive",
+      "silhouette_family": "biped_medium",
+      "signature": {
+        "id": "shoulder_rush",
+        "eligible_speed_index_range": [
+          0.66,
+          0.92
+        ],
+        "requires_proximity": true,
+        "telegraph_id": "tell_shoulder_rush",
+        "counterplay": "Control pace to force overshoot and punish recoil",
+        "once_per_pass": true
+      }
+    },
+    {
+      "id": "parasaurolophus",
+      "name": "Parasaurolophus",
+      "division": "MIDDLE",
+      "normalized_mass": 1.66,
+      "saddle_height_index": 1.55,
+      "max_speed_index": 0.77,
+      "acceleration_index": 0.71,
+      "grip_index": 0.84,
+      "balance_index": 0.79,
+      "temperament": "wary",
+      "silhouette_family": "hadrosaur_medium",
+      "signature": {
+        "id": "body_feint",
+        "eligible_speed_index_range": [
+          0.38,
+          0.67
+        ],
+        "requires_proximity": true,
+        "telegraph_id": "tell_body_feint",
+        "counterplay": "Observe body-lean tell, vary release timing",
+        "once_per_pass": true
+      }
+    },
+    {
+      "id": "triceratops",
+      "name": "Triceratops",
+      "division": "HEAVY",
+      "normalized_mass": 2.21,
+      "saddle_height_index": 1.88,
+      "max_speed_index": 0.58,
+      "acceleration_index": 0.49,
+      "grip_index": 0.86,
+      "balance_index": 0.94,
+      "temperament": "stubborn",
+      "silhouette_family": "ceratopsian_large",
+      "signature": {
+        "id": "horn_check",
+        "eligible_speed_index_range": [
+          0.28,
+          0.68
+        ],
+        "requires_proximity": true,
+        "telegraph_id": "tell_horn_check",
+        "counterplay": "Avoid horn corridor; precise lance angle against tall rider",
+        "once_per_pass": true
+      }
+    },
+    {
+      "id": "ankylosaurus",
+      "name": "Ankylosaurus",
+      "division": "HEAVY",
+      "normalized_mass": 2.28,
+      "saddle_height_index": 1.76,
+      "max_speed_index": 0.43,
+      "acceleration_index": 0.4,
+      "grip_index": 0.95,
+      "balance_index": 0.96,
+      "temperament": "defensive",
+      "silhouette_family": "ankylosaur_large",
+      "signature": {
+        "id": "tail_rebuttal",
+        "eligible_speed_index_range": [
+          0.21,
+          0.6
+        ],
+        "requires_proximity": true,
+        "telegraph_id": "tell_tail_rebuttal",
+        "counterplay": "Do not remain near the tail after crossing",
+        "once_per_pass": true
+      }
+    }
+  ]
+}

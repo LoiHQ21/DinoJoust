@@ -1,0 +1,24 @@
+{
+  "_status": "PROPOSED / illustrative starting values only; not balanced or engine-tested",
+  "schema_version": "0.1",
+  "purpose": "STATIC illustrative config; not an actual tested gameplay trace",
+  "seed": 1234,
+  "mode": "exhibition",
+  "rules": "standard_tournament",
+  "arena": "royal_stone",
+  "player_dinosaur": "velociraptor",
+  "enemy_dinosaur": "protoceratops",
+  "player_gear": [
+    "standard_lance",
+    "quickstep_harness",
+    "beast_handler"
+  ],
+  "enemy_ai": "counterpuncher",
+  "expected_cinematic_events": [
+    "approach_chase",
+    "possible_predator_snap",
+    "lance_contact",
+    "impact_emphasis",
+    "post_outcome_ragdoll"
+  ]
+}

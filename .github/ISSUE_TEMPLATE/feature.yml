@@ -1,0 +1,23 @@
+name: Feature / design implementation
+description: Implement or validate one Crownfall design item
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Player-visible outcome
+      description: State what the player will see and do.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Describe observable verified checks including mobile landscape where relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Related docs, dependencies, risks

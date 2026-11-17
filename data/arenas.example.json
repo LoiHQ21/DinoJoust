@@ -1,0 +1,47 @@
+{
+  "_status": "PROPOSED / illustrative starting values only; not balanced or engine-tested",
+  "schema_version": "0.1",
+  "arenas": [
+    {
+      "id": "royal_stone",
+      "display_name": "Royal Stone Court",
+      "terrain_key": "stone",
+      "grip_multiplier": 1.1,
+      "accel_multiplier": 1.0,
+      "recoil_multiplier": 1.2,
+      "telegraph": "Hard ground, stronger recoil after impact",
+      "proposed": true
+    },
+    {
+      "id": "mud_pit",
+      "display_name": "Mud Pit",
+      "terrain_key": "mud",
+      "grip_multiplier": 0.8,
+      "accel_multiplier": 0.74,
+      "recoil_multiplier": 0.86,
+      "telegraph": "Heavy feet sink, early acceleration favored",
+      "proposed": true
+    },
+    {
+      "id": "sunscorched_sands",
+      "display_name": "Sunscorched Sands",
+      "terrain_key": "sand",
+      "grip_multiplier": 0.76,
+      "accel_multiplier": 0.87,
+      "recoil_multiplier": 0.95,
+      "telegraph": "Loose ground punishes sudden speed changes",
+      "proposed": true
+    },
+    {
+      "id": "frozen_grounds",
+      "display_name": "Frozen Grounds",
+      "terrain_key": "ice",
+      "grip_multiplier": 0.5,
+      "accel_multiplier": 0.8,
+      "recoil_multiplier": 1.05,
+      "telegraph": "Sliding and slower recovery",
+      "proposed": true
+    }
+  ],
+  "weather_modifier_rule": "0 or 1 additional meaningful weather condition per arena; no hidden damage randomizer"
+}

@@ -1,0 +1,25 @@
+name: Bug report
+description: Report gameplay or project defect
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected versus observed
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Engine version, build, device, operating system
+  - type: textarea
+    id: logs
+    attributes:
+      label: Duel seed / logs / screenshots

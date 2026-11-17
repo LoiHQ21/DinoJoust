@@ -1,0 +1,46 @@
+{
+  "_status": "PROPOSED / illustrative starting values only; not balanced or engine-tested",
+  "schema_version": "0.1",
+  "equipment": [
+    {
+      "id": "standard_lance",
+      "slot": "LANCE",
+      "design_effect": "Baseline reach and scoring, no special effect"
+    },
+    {
+      "id": "spring_lance",
+      "slot": "LANCE",
+      "design_effect": "Clean precision hits cause stronger knock-back, glances less rewarding"
+    },
+    {
+      "id": "splinter_lance",
+      "slot": "LANCE",
+      "design_effect": "Strong clean hit scores with fracture reaction; possible equipment cost"
+    },
+    {
+      "id": "heavy_lance",
+      "slot": "LANCE",
+      "design_effect": "High leverage but slower aim commitment"
+    },
+    {
+      "id": "reinforced_saddle",
+      "slot": "SADDLE",
+      "design_effect": "Higher knock-off resistance but reduces acceleration"
+    },
+    {
+      "id": "quickstep_harness",
+      "slot": "SADDLE",
+      "design_effect": "Improved speed changes but lower recoil defense"
+    },
+    {
+      "id": "beast_handler",
+      "slot": "PERK",
+      "design_effect": "Earlier visual indication of mount signature contact window"
+    },
+    {
+      "id": "underdog_crest",
+      "slot": "PERK",
+      "design_effect": "Better leverage against taller legal same-division mounts"
+    }
+  ]
+}

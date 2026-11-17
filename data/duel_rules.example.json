@@ -1,0 +1,27 @@
+{
+  "_status": "PROPOSED / illustrative starting values only; not balanced or engine-tested",
+  "schema_version": "0.1",
+  "name": "standard_tournament",
+  "simulation_hz": 60,
+  "max_passes": 3,
+  "starting_seat_stability": 100,
+  "dismount_immediate_win": true,
+  "lance_points": {
+    "miss": 0,
+    "glance": 1,
+    "clean": 2
+  },
+  "beast_contact_awards_direct_points": false,
+  "tie_resolution": "sudden_death_then_higher_stability_if_tied (proposal)",
+  "mass_ratio_limit": 1.35,
+  "saddle_height_ratio_limit": 1.3,
+  "enforce_same_division": true,
+  "camera_live": "rear_chase_over_rider",
+  "camera_after_contact": "brief_impact_then_followthrough",
+  "aim_commit_seconds_target": [
+    0.3,
+    0.5
+  ],
+  "beast_effect_ordinary_pass_cap_fraction_experiment": 0.2,
+  "note": "Ratios, stability, scoring and thresholds are draft values; playtest before accepting."
+}

@@ -1,0 +1,37 @@
+{
+  "_status": "PROPOSED / illustrative starting values only; not balanced or engine-tested",
+  "schema_version": "0.1",
+  "in_match_camera": "rear_chase_over_rider",
+  "modes": [
+    {
+      "id": "campaign",
+      "primary_goal": "Reach Crownfall Championship through regional cups",
+      "pre_match_camera": "high_three_quarter_3d_courtyard_diorama",
+      "mvp": false
+    },
+    {
+      "id": "challenge",
+      "primary_goal": "Master authored dinosaur/arena/lance scenarios",
+      "pre_match_camera": "3d_challenge_podium_preview",
+      "mvp": false
+    },
+    {
+      "id": "draft",
+      "primary_goal": "Construct one temporary build across a short randomized bracket",
+      "pre_match_camera": "3d_turntable_plus_cards",
+      "mvp": true
+    },
+    {
+      "id": "endless",
+      "primary_goal": "Survive escalating AI and conditions for longest streak",
+      "pre_match_camera": "3d_high_arena_sweep",
+      "mvp": false
+    },
+    {
+      "id": "exhibition",
+      "primary_goal": "Custom matches and experimental/unbalanced setups",
+      "pre_match_camera": "dual_3d_showroom_turntables",
+      "mvp": true
+    }
+  ]
+}
