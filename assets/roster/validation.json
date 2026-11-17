@@ -1,0 +1,979 @@
+{
+  "tool": "Blender 4.3.2",
+  "checks": "GLB round-trip, embedded palette, sockets, normalized weights, finite deformation at five points per clip",
+  "assets": [
+    {
+      "file": "CHR_Knight_Azure_A.glb",
+      "sha256": "e9e3070c11bd87d602c3b1ddc38fdb78b696673722b1e2a23e6eb55d59b54a22",
+      "skins": 1,
+      "meshes": 2,
+      "triangles": 1986,
+      "materials": 1,
+      "idle_bounds_m": [
+        [
+          -1.5889532566070557,
+          0.41122978925704956
+        ],
+        [
+          -0.27603596448898315,
+          0.48750001192092896
+        ],
+        [
+          0.0,
+          1.6825001239776611
+        ]
+      ],
+      "idle_round_trip_tolerance_m": 0.001,
+      "animations": [
+        {
+          "clip": "Death_CHR_Knight_Azure_A_Rig",
+          "frame_range": [
+            0.0,
+            34.0
+          ],
+          "sampled_frames": [
+            0.0,
+            8.5,
+            17.0,
+            25.5,
+            34.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Idle_CHR_Knight_Azure_A_Rig",
+          "frame_range": [
+            0.0,
+            80.0
+          ],
+          "sampled_frames": [
+            0.0,
+            20.0,
+            40.0,
+            60.0,
+            80.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Idle_swordLeft_CHR_Knight_Azure_A_Rig",
+          "frame_range": [
+            0.0,
+            80.0
+          ],
+          "sampled_frames": [
+            0.0,
+            20.0,
+            40.0,
+            60.0,
+            80.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Idle_swordRight_CHR_Knight_Azure_A_Rig",
+          "frame_range": [
+            0.0,
+            80.0
+          ],
+          "sampled_frames": [
+            0.0,
+            20.0,
+            40.0,
+            60.0,
+            80.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Jump_CHR_Knight_Azure_A_Rig",
+          "frame_range": [
+            0.0,
+            29.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.25,
+            14.5,
+            21.75,
+            29.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Roll_CHR_Knight_Azure_A_Rig",
+          "frame_range": [
+            0.0,
+            30.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.5,
+            15.0,
+            22.5,
+            30.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Roll_sword_CHR_Knight_Azure_A_Rig",
+          "frame_range": [
+            0.0,
+            30.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.5,
+            15.0,
+            22.5,
+            30.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Run_CHR_Knight_Azure_A_Rig",
+          "frame_range": [
+            0.0,
+            20.0
+          ],
+          "sampled_frames": [
+            0.0,
+            5.0,
+            10.0,
+            15.0,
+            20.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Run_swordAttack_CHR_Knight_Azure_A_Rig",
+          "frame_range": [
+            0.0,
+            20.0
+          ],
+          "sampled_frames": [
+            0.0,
+            5.0,
+            10.0,
+            15.0,
+            20.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Run_swordRight_CHR_Knight_Azure_A_Rig",
+          "frame_range": [
+            0.0,
+            20.0
+          ],
+          "sampled_frames": [
+            0.0,
+            5.0,
+            10.0,
+            15.0,
+            20.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "swordAttackJump_CHR_Knight_Azure_A_Rig",
+          "frame_range": [
+            0.0,
+            28.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.0,
+            14.0,
+            21.0,
+            28.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Walking_CHR_Knight_Azure_A_Rig",
+          "frame_range": [
+            0.0,
+            30.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.5,
+            15.0,
+            22.5,
+            30.0
+          ],
+          "finite_deformation": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "file": "CHR_Knight_Crimson_A.glb",
+      "sha256": "6c401c14b2079b7307f2773d661f7e3784e779efc86268536a4262f4fe4592e9",
+      "skins": 1,
+      "meshes": 2,
+      "triangles": 2001,
+      "materials": 1,
+      "idle_bounds_m": [
+        [
+          -1.5889532566070557,
+          0.41122978925704956
+        ],
+        [
+          -0.2874999940395355,
+          0.5
+        ],
+        [
+          0.0,
+          1.790000081062317
+        ]
+      ],
+      "idle_round_trip_tolerance_m": 0.001,
+      "animations": [
+        {
+          "clip": "Death_CHR_Knight_Crimson_A_Rig",
+          "frame_range": [
+            0.0,
+            34.0
+          ],
+          "sampled_frames": [
+            0.0,
+            8.5,
+            17.0,
+            25.5,
+            34.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Idle_CHR_Knight_Crimson_A_Rig",
+          "frame_range": [
+            0.0,
+            80.0
+          ],
+          "sampled_frames": [
+            0.0,
+            20.0,
+            40.0,
+            60.0,
+            80.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Idle_swordLeft_CHR_Knight_Crimson_A_Rig",
+          "frame_range": [
+            0.0,
+            80.0
+          ],
+          "sampled_frames": [
+            0.0,
+            20.0,
+            40.0,
+            60.0,
+            80.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Idle_swordRight_CHR_Knight_Crimson_A_Rig",
+          "frame_range": [
+            0.0,
+            80.0
+          ],
+          "sampled_frames": [
+            0.0,
+            20.0,
+            40.0,
+            60.0,
+            80.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Jump_CHR_Knight_Crimson_A_Rig",
+          "frame_range": [
+            0.0,
+            29.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.25,
+            14.5,
+            21.75,
+            29.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Roll_CHR_Knight_Crimson_A_Rig",
+          "frame_range": [
+            0.0,
+            30.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.5,
+            15.0,
+            22.5,
+            30.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Roll_sword_CHR_Knight_Crimson_A_Rig",
+          "frame_range": [
+            0.0,
+            30.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.5,
+            15.0,
+            22.5,
+            30.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Run_CHR_Knight_Crimson_A_Rig",
+          "frame_range": [
+            0.0,
+            20.0
+          ],
+          "sampled_frames": [
+            0.0,
+            5.0,
+            10.0,
+            15.0,
+            20.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Run_swordAttack_CHR_Knight_Crimson_A_Rig",
+          "frame_range": [
+            0.0,
+            20.0
+          ],
+          "sampled_frames": [
+            0.0,
+            5.0,
+            10.0,
+            15.0,
+            20.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Run_swordRight_CHR_Knight_Crimson_A_Rig",
+          "frame_range": [
+            0.0,
+            20.0
+          ],
+          "sampled_frames": [
+            0.0,
+            5.0,
+            10.0,
+            15.0,
+            20.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "swordAttackJump_CHR_Knight_Crimson_A_Rig",
+          "frame_range": [
+            0.0,
+            28.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.0,
+            14.0,
+            21.0,
+            28.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Walking_CHR_Knight_Crimson_A_Rig",
+          "frame_range": [
+            0.0,
+            30.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.5,
+            15.0,
+            22.5,
+            30.0
+          ],
+          "finite_deformation": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "file": "CHR_Knight_Jade_A.glb",
+      "sha256": "d31bb1432ab556de836c1574b0222c0007b46ca60a11044a122a234da8786981",
+      "skins": 1,
+      "meshes": 2,
+      "triangles": 2585,
+      "materials": 1,
+      "idle_bounds_m": [
+        [
+          -1.5889532566070557,
+          0.41122978925704956
+        ],
+        [
+          -0.2827092111110687,
+          0.3125
+        ],
+        [
+          0.0,
+          1.6600000858306885
+        ]
+      ],
+      "idle_round_trip_tolerance_m": 0.001,
+      "animations": [
+        {
+          "clip": "Death_CHR_Knight_Jade_A_Rig",
+          "frame_range": [
+            0.0,
+            34.0
+          ],
+          "sampled_frames": [
+            0.0,
+            8.5,
+            17.0,
+            25.5,
+            34.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Idle_CHR_Knight_Jade_A_Rig",
+          "frame_range": [
+            0.0,
+            80.0
+          ],
+          "sampled_frames": [
+            0.0,
+            20.0,
+            40.0,
+            60.0,
+            80.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Idle_swordLeft_CHR_Knight_Jade_A_Rig",
+          "frame_range": [
+            0.0,
+            80.0
+          ],
+          "sampled_frames": [
+            0.0,
+            20.0,
+            40.0,
+            60.0,
+            80.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Idle_swordRight_CHR_Knight_Jade_A_Rig",
+          "frame_range": [
+            0.0,
+            80.0
+          ],
+          "sampled_frames": [
+            0.0,
+            20.0,
+            40.0,
+            60.0,
+            80.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Jump_CHR_Knight_Jade_A_Rig",
+          "frame_range": [
+            0.0,
+            29.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.25,
+            14.5,
+            21.75,
+            29.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Roll_CHR_Knight_Jade_A_Rig",
+          "frame_range": [
+            0.0,
+            30.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.5,
+            15.0,
+            22.5,
+            30.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Roll_sword_CHR_Knight_Jade_A_Rig",
+          "frame_range": [
+            0.0,
+            30.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.5,
+            15.0,
+            22.5,
+            30.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Run_CHR_Knight_Jade_A_Rig",
+          "frame_range": [
+            0.0,
+            20.0
+          ],
+          "sampled_frames": [
+            0.0,
+            5.0,
+            10.0,
+            15.0,
+            20.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Run_swordAttack_CHR_Knight_Jade_A_Rig",
+          "frame_range": [
+            0.0,
+            20.0
+          ],
+          "sampled_frames": [
+            0.0,
+            5.0,
+            10.0,
+            15.0,
+            20.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Run_swordRight_CHR_Knight_Jade_A_Rig",
+          "frame_range": [
+            0.0,
+            20.0
+          ],
+          "sampled_frames": [
+            0.0,
+            5.0,
+            10.0,
+            15.0,
+            20.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "swordAttackJump_CHR_Knight_Jade_A_Rig",
+          "frame_range": [
+            0.0,
+            28.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.0,
+            14.0,
+            21.0,
+            28.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Walking_CHR_Knight_Jade_A_Rig",
+          "frame_range": [
+            0.0,
+            30.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.5,
+            15.0,
+            22.5,
+            30.0
+          ],
+          "finite_deformation": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "file": "DNO_Parasaurolophus_A.glb",
+      "sha256": "4cf2b63f8986be58f29865f9738a9df92cbd798ad5556a95575c8bd5d84b869a",
+      "skins": 1,
+      "meshes": 2,
+      "triangles": 2398,
+      "materials": 1,
+      "idle_bounds_m": [
+        [
+          -0.3450937867164612,
+          0.3450937867164612
+        ],
+        [
+          -1.7146391868591309,
+          2.40714693069458
+        ],
+        [
+          0.0,
+          1.9871220588684082
+        ]
+      ],
+      "idle_round_trip_tolerance_m": 0.001,
+      "animations": [
+        {
+          "clip": "Parasaurolophus_Attack_DNO_Parasaurolophus_A_Rig",
+          "frame_range": [
+            0.0,
+            20.0
+          ],
+          "sampled_frames": [
+            0.0,
+            5.0,
+            10.0,
+            15.0,
+            20.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Parasaurolophus_Death_DNO_Parasaurolophus_A_Rig",
+          "frame_range": [
+            0.0,
+            31.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.75,
+            15.5,
+            23.25,
+            31.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Parasaurolophus_Idle_DNO_Parasaurolophus_A_Rig",
+          "frame_range": [
+            0.0,
+            60.0
+          ],
+          "sampled_frames": [
+            0.0,
+            15.0,
+            30.0,
+            45.0,
+            60.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Parasaurolophus_Jump_DNO_Parasaurolophus_A_Rig",
+          "frame_range": [
+            0.0,
+            32.0
+          ],
+          "sampled_frames": [
+            0.0,
+            8.0,
+            16.0,
+            24.0,
+            32.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Parasaurolophus_Run_DNO_Parasaurolophus_A_Rig",
+          "frame_range": [
+            0.0,
+            13.0
+          ],
+          "sampled_frames": [
+            0.0,
+            3.25,
+            6.5,
+            9.75,
+            13.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Parasaurolophus_Walk_DNO_Parasaurolophus_A_Rig",
+          "frame_range": [
+            0.0,
+            28.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.0,
+            14.0,
+            21.0,
+            28.0
+          ],
+          "finite_deformation": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "file": "DNO_Triceratops_A.glb",
+      "sha256": "45c750408e39993b876dd18948427ef8420bb452b90f7fb46837518d7c7567df",
+      "skins": 1,
+      "meshes": 2,
+      "triangles": 2325,
+      "materials": 1,
+      "idle_bounds_m": [
+        [
+          -0.6286044120788574,
+          0.6287636160850525
+        ],
+        [
+          -2.0548179149627686,
+          2.5906386375427246
+        ],
+        [
+          1.4901161193847656e-08,
+          1.994943380355835
+        ]
+      ],
+      "idle_round_trip_tolerance_m": 0.001,
+      "animations": [
+        {
+          "clip": "Triceratops_Attack_DNO_Triceratops_A_Rig",
+          "frame_range": [
+            0.0,
+            18.0
+          ],
+          "sampled_frames": [
+            0.0,
+            4.5,
+            9.0,
+            13.5,
+            18.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Triceratops_Death_DNO_Triceratops_A_Rig",
+          "frame_range": [
+            0.0,
+            43.0
+          ],
+          "sampled_frames": [
+            0.0,
+            10.75,
+            21.5,
+            32.25,
+            43.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Triceratops_Idle_DNO_Triceratops_A_Rig",
+          "frame_range": [
+            0.0,
+            61.0
+          ],
+          "sampled_frames": [
+            0.0,
+            15.25,
+            30.5,
+            45.75,
+            61.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Triceratops_Jump_DNO_Triceratops_A_Rig",
+          "frame_range": [
+            0.0,
+            40.0
+          ],
+          "sampled_frames": [
+            0.0,
+            10.0,
+            20.0,
+            30.0,
+            40.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Triceratops_Run_DNO_Triceratops_A_Rig",
+          "frame_range": [
+            0.0,
+            19.0
+          ],
+          "sampled_frames": [
+            0.0,
+            4.75,
+            9.5,
+            14.25,
+            19.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Triceratops_Walk_DNO_Triceratops_A_Rig",
+          "frame_range": [
+            0.0,
+            70.0
+          ],
+          "sampled_frames": [
+            0.0,
+            17.5,
+            35.0,
+            52.5,
+            70.0
+          ],
+          "finite_deformation": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "file": "DNO_Velociraptor_A.glb",
+      "sha256": "f1e05ed22fba3f474a73877eda715149bdc871ac0447ec67565e26e52ec519cd",
+      "skins": 1,
+      "meshes": 2,
+      "triangles": 2316,
+      "materials": 1,
+      "idle_bounds_m": [
+        [
+          -0.3954024016857147,
+          0.3953988552093506
+        ],
+        [
+          -1.6484038829803467,
+          2.2462565898895264
+        ],
+        [
+          0.0,
+          1.834550380706787
+        ]
+      ],
+      "idle_round_trip_tolerance_m": 0.001,
+      "animations": [
+        {
+          "clip": "Velociraptor_Attack_DNO_Velociraptor_A_Rig",
+          "frame_range": [
+            0.0,
+            20.0
+          ],
+          "sampled_frames": [
+            0.0,
+            5.0,
+            10.0,
+            15.0,
+            20.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Velociraptor_Death_DNO_Velociraptor_A_Rig",
+          "frame_range": [
+            0.0,
+            31.0
+          ],
+          "sampled_frames": [
+            0.0,
+            7.75,
+            15.5,
+            23.25,
+            31.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Velociraptor_Idle_DNO_Velociraptor_A_Rig",
+          "frame_range": [
+            0.0,
+            60.0
+          ],
+          "sampled_frames": [
+            0.0,
+            15.0,
+            30.0,
+            45.0,
+            60.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Velociraptor_Jump_DNO_Velociraptor_A_Rig",
+          "frame_range": [
+            0.0,
+            27.0
+          ],
+          "sampled_frames": [
+            0.0,
+            6.75,
+            13.5,
+            20.25,
+            27.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Velociraptor_Run_DNO_Velociraptor_A_Rig",
+          "frame_range": [
+            0.0,
+            13.0
+          ],
+          "sampled_frames": [
+            0.0,
+            3.25,
+            6.5,
+            9.75,
+            13.0
+          ],
+          "finite_deformation": true
+        },
+        {
+          "clip": "Velociraptor_Walk_DNO_Velociraptor_A_Rig",
+          "frame_range": [
+            0.0,
+            58.0
+          ],
+          "sampled_frames": [
+            0.0,
+            14.5,
+            29.0,
+            43.5,
+            58.0
+          ],
+          "finite_deformation": true
+        }
+      ],
+      "status": "PASS"
+    }
+  ],
+  "unverified": [
+    "Engine import and runtime shaders",
+    "Mounted pose/IK and lance aim",
+    "Contact animation and gameplay",
+    "Chase camera with HUD",
+    "Real-device performance"
+  ]
+}

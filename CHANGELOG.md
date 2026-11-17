@@ -1,5 +1,11 @@
 # Changelog
 
+## Art roster study (2026-11-17)
+
+- Added three distinct chibi knight variants and three dinosaur species as rigged Blender/GLB art prototypes, adapted from documented Quaternius CC0 sources.
+- Added a shared palette, faction equipment, saddle/weapon sockets, actual mesh renders, reproducible build tooling and export/import validation.
+- Recorded art-direction analysis, source selection and remaining production gates. Engine choice, gameplay and the proposed Light MVP roster remain unchanged.
+
 ## Design handoff v0.3 (2026-11-18)
 
 - Consolidated project into GitHub-ready docs, references, Codex instructions and starter data.

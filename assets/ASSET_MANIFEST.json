@@ -1,6 +1,6 @@
 {
   "generated_on": "2026-11-18",
-  "notice": "AI-generated visual references only; not 3D models, engine renders or proven gameplay",
+  "notice": "Concept/reference inventory below; actual rigged 3D art prototypes have a separate manifest at assets/roster/manifest.json.",
   "files": [
     {
       "path": "assets/animation/01_early_beast_lance_duel.gif",
@@ -223,5 +223,9 @@
       "image_format": "PNG",
       "status": "CURRENT_CONCEPT"
     }
+  ],
+  "related_manifests": [
+    "assets/roster/manifest.json",
+    "assets/third_party/quaternius/sources.json"
   ]
 }

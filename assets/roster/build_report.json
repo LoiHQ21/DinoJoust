@@ -1,0 +1,185 @@
+{
+  "blender": "4.3.2",
+  "assets": [
+    {
+      "id": "CHR_Knight_Azure_A",
+      "name": "Azure Lancer",
+      "faction": "blue",
+      "status": "ART_PROTOTYPE",
+      "source": "KnightCharacter",
+      "triangles": 1986,
+      "bones": 31,
+      "actions": [
+        "Death",
+        "Idle",
+        "Idle_swordLeft",
+        "Idle_swordRight",
+        "Jump",
+        "Roll",
+        "Roll_sword",
+        "Run",
+        "Run_swordAttack",
+        "Run_swordRight",
+        "swordAttackJump",
+        "Walking"
+      ],
+      "sockets": [
+        "SCK_LancePivot",
+        "SCK_Shield",
+        "SCK_RiderSeat",
+        "SCK_Helmet"
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    {
+      "id": "CHR_Knight_Crimson_A",
+      "name": "Crimson Champion",
+      "faction": "red",
+      "status": "ART_PROTOTYPE",
+      "source": "KnightCharacter",
+      "triangles": 2001,
+      "bones": 31,
+      "actions": [
+        "Death",
+        "Idle",
+        "Idle_swordLeft",
+        "Idle_swordRight",
+        "Jump",
+        "Roll",
+        "Roll_sword",
+        "Run",
+        "Run_swordAttack",
+        "Run_swordRight",
+        "swordAttackJump",
+        "Walking"
+      ],
+      "sockets": [
+        "SCK_LancePivot",
+        "SCK_Shield",
+        "SCK_RiderSeat",
+        "SCK_Helmet"
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    {
+      "id": "CHR_Knight_Jade_A",
+      "name": "Jade Warden",
+      "faction": "jade",
+      "status": "ART_PROTOTYPE",
+      "source": "KnightCharacter",
+      "triangles": 2585,
+      "bones": 31,
+      "actions": [
+        "Death",
+        "Idle",
+        "Idle_swordLeft",
+        "Idle_swordRight",
+        "Jump",
+        "Roll",
+        "Roll_sword",
+        "Run",
+        "Run_swordAttack",
+        "Run_swordRight",
+        "swordAttackJump",
+        "Walking"
+      ],
+      "sockets": [
+        "SCK_LancePivot",
+        "SCK_Shield",
+        "SCK_RiderSeat",
+        "SCK_Helmet"
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    {
+      "id": "DNO_Velociraptor_A",
+      "name": "Velociraptor",
+      "faction": "blue",
+      "status": "ART_PROTOTYPE",
+      "source": "Velociraptor",
+      "triangles": 2316,
+      "bones": 29,
+      "actions": [
+        "Velociraptor_Attack",
+        "Velociraptor_Death",
+        "Velociraptor_Idle",
+        "Velociraptor_Jump",
+        "Velociraptor_Run",
+        "Velociraptor_Walk"
+      ],
+      "sockets": [
+        "SCK_RiderSeat",
+        "SCK_BeastContact"
+      ],
+      "scale": [
+        0.30000001192092896,
+        0.30000001192092896,
+        0.30000001192092896
+      ]
+    },
+    {
+      "id": "DNO_Triceratops_A",
+      "name": "Triceratops",
+      "faction": "jade",
+      "status": "ART_PROTOTYPE",
+      "source": "Triceratops",
+      "triangles": 2325,
+      "bones": 29,
+      "actions": [
+        "Triceratops_Attack",
+        "Triceratops_Death",
+        "Triceratops_Idle",
+        "Triceratops_Jump",
+        "Triceratops_Run",
+        "Triceratops_Walk"
+      ],
+      "sockets": [
+        "SCK_RiderSeat",
+        "SCK_BeastContact"
+      ],
+      "scale": [
+        0.4300000071525574,
+        0.4300000071525574,
+        0.4300000071525574
+      ]
+    },
+    {
+      "id": "DNO_Parasaurolophus_A",
+      "name": "Parasaurolophus",
+      "faction": "red",
+      "status": "ART_PROTOTYPE",
+      "source": "Parasaurolophus",
+      "triangles": 2398,
+      "bones": 29,
+      "actions": [
+        "Parasaurolophus_Attack",
+        "Parasaurolophus_Death",
+        "Parasaurolophus_Idle",
+        "Parasaurolophus_Jump",
+        "Parasaurolophus_Run",
+        "Parasaurolophus_Walk"
+      ],
+      "sockets": [
+        "SCK_RiderSeat",
+        "SCK_BeastContact"
+      ],
+      "scale": [
+        0.3400000035762787,
+        0.3400000035762787,
+        0.3400000035762787
+      ]
+    }
+  ]
+}

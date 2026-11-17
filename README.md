@@ -24,6 +24,7 @@ The current visual target is **original faceted chibi-anime fantasy 3D**: readab
 
 ## Deliverables already in this repo
 
+- [Six rigged art prototypes](assets/roster/README.md): three knights and three dinosaur species, Blender sources, GLBs, an [offline preview gallery](assets/roster/index.html), and validation reports
 - Canonical design docs, decision register, systems/specs, constraints, open questions
 - Codex instructions and concrete first implementation task
 - Structured *illustrative* JSON data with schema validation script
@@ -34,7 +35,7 @@ The current visual target is **original faceted chibi-anime fantasy 3D**: readab
 
 ## What's not present
 
-No Unity/Godot/Unreal project, build, rigs, GLB/FBX files, proprietary meshes, playable prototype, gameplay telemetry, or tested balance values. Reference pictures are not production assets. **Do not claim the game is implemented or tested.**
+No Unity/Godot/Unreal project, game build, playable prototype, gameplay telemetry, or tested balance values. The new rigged art prototypes have interchange-file checks, but no engine/gameplay validation. Reference pictures are not production assets. **Do not claim the game is implemented or tested.**
 
 ## Recommended immediate next step
 
@@ -46,6 +47,6 @@ Make a graybox true-3D joust in a chosen engine with two rigs or primitive stand
 
 ## Repository usage
 
-This folder can be extracted and pushed to a new GitHub repository. See [`docs/handoff/GITHUB_SETUP.md`](docs/handoff/GITHUB_SETUP.md). Source art supplied as screenshots of other games/ads is intentionally **not bundled**; only our generated concepts are included.
+This folder can be extracted and pushed to a new GitHub repository. See [`docs/handoff/GITHUB_SETUP.md`](docs/handoff/GITHUB_SETUP.md). Source art supplied as screenshots of other games/ads is intentionally **not bundled**. Generated concepts and [documented Quaternius CC0 base models](assets/third_party/quaternius/README.md) are included.
 
-There is no license granted by this repo. Choose a license for code and separately review rights/terms for generated assets before public redistribution or commercial use.
+No repository-wide license is selected. The bundled third-party model sources retain their documented CC0 terms; this does not set the license for project code or newly authored adaptations.

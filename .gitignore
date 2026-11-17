@@ -17,6 +17,8 @@ MemoryCaptures/
 # Godot (if selected instead)
 .godot/
 # OS and editor
+*.blend1
+*.blend2
 .DS_Store
 Thumbs.db
 __pycache__/

@@ -1,0 +1,18 @@
+{
+  "checked_on": "2026-11-17",
+  "license": "CC0-1.0",
+  "pages": [
+    {
+      "url": "https://quaternius.com/packs/animateddinosaurs.html",
+      "retrieved_html_sha256": "28ac63c0680ebce7328ad46adbde70d3567a0e37859e93e02087182bce5ea14b",
+      "license_label": "CC0",
+      "commercial_use_excerpt": "free to use in personal and commercial projects."
+    },
+    {
+      "url": "https://quaternius.com/packs/knightcharacter.html",
+      "retrieved_html_sha256": "ea616c650480cd39150f07010cf30b2d6f63f8f46d5b56dbd467ca75d792aacf",
+      "license_label": "CC0",
+      "commercial_use_excerpt": "free to use in personal and commercial projects."
+    }
+  ]
+}

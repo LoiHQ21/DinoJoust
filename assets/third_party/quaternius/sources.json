@@ -1,0 +1,66 @@
+[
+  {
+    "file": "Parasaurolophus.blend",
+    "author": "Quaternius",
+    "license": "CC0-1.0",
+    "source": "https://quaternius.itch.io/animated-lowpoly-dinosaurs",
+    "archive_member": "Dinosaur Animated Pack - Dec 2018/Blends/Parasaurolophus.blend",
+    "sha256": "d1e050432fdc3ca21da1c562cde1e47a043e753c44a4d531afb289acc34c6e8d"
+  },
+  {
+    "file": "Triceratops.blend",
+    "author": "Quaternius",
+    "license": "CC0-1.0",
+    "source": "https://quaternius.itch.io/animated-lowpoly-dinosaurs",
+    "archive_member": "Dinosaur Animated Pack - Dec 2018/Blends/Triceratops.blend",
+    "sha256": "6eca99470d0f452bc8930ba5db40c642c6b17e9dd1567862b4c17fb052959bf9"
+  },
+  {
+    "file": "Velociraptor.blend",
+    "author": "Quaternius",
+    "license": "CC0-1.0",
+    "source": "https://quaternius.itch.io/animated-lowpoly-dinosaurs",
+    "archive_member": "Dinosaur Animated Pack - Dec 2018/Blends/Velociraptor.blend",
+    "sha256": "addfa06b9851b61f8e53b0cd1468e45c43ca0f4f2d2c6b756f1c8c0efa5fffc1"
+  },
+  {
+    "file": "License.txt",
+    "author": "Quaternius",
+    "license": "CC0-1.0",
+    "source": "https://quaternius.itch.io/animated-lowpoly-dinosaurs",
+    "archive_member": "Dinosaur Animated Pack - Dec 2018/License.txt",
+    "sha256": "83d8959f9fc56353ed571fbe2dc52e4bcd64508e2399501cd45ac2ce3df0bf8c"
+  },
+  {
+    "file": "Helmet1.blend",
+    "author": "Quaternius",
+    "license": "CC0-1.0",
+    "source": "https://quaternius.itch.io/lowpoly-animated-knight",
+    "archive_member": "Blends/Helmet1.blend",
+    "sha256": "6edd838c5f492afe6093fbe2005c721f73020ea87244c53a390d503fbf744dd2"
+  },
+  {
+    "file": "Helmet2.blend",
+    "author": "Quaternius",
+    "license": "CC0-1.0",
+    "source": "https://quaternius.itch.io/lowpoly-animated-knight",
+    "archive_member": "Blends/Helmet2.blend",
+    "sha256": "afb9342981bd0105a3416bf60302d50fe8d997cc7e21f316b23ca556ab902402"
+  },
+  {
+    "file": "Helmet3.blend",
+    "author": "Quaternius",
+    "license": "CC0-1.0",
+    "source": "https://quaternius.itch.io/lowpoly-animated-knight",
+    "archive_member": "Blends/Helmet3.blend",
+    "sha256": "e147be52dfe9f3ce512d0f725a7d02e37b7bfd04c112a499500596e37d77566c"
+  },
+  {
+    "file": "KnightCharacter.blend",
+    "author": "Quaternius",
+    "license": "CC0-1.0",
+    "source": "https://quaternius.itch.io/lowpoly-animated-knight",
+    "archive_member": "Blends/KnightCharacter.blend",
+    "sha256": "edc8036644626dbe20fbf2d2bd3b046688496962c0dacc516b3ea78f519a35e9"
+  }
+]

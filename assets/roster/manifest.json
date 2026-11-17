@@ -1,0 +1,192 @@
+{
+  "status": "ART_PROTOTYPE",
+  "notice": "Actual rigged meshes and their rendered previews; not engine validated.",
+  "source_record": "../third_party/quaternius/sources.json",
+  "files": [
+    {
+      "path": "AssetSource/CHR_Knight_Azure_A.blend",
+      "bytes": 225364,
+      "sha256": "edcc0422e55a2de874ea3bbd710573294edaa34dc43dba5e09d3123f73bc1aaf"
+    },
+    {
+      "path": "AssetSource/CHR_Knight_Crimson_A.blend",
+      "bytes": 225865,
+      "sha256": "70e5f9ecf3e46bca2fd618d6aaf41c76b37f00ca27db64084e6e16f1801aec2c"
+    },
+    {
+      "path": "AssetSource/CHR_Knight_Jade_A.blend",
+      "bytes": 239062,
+      "sha256": "97ebb6fc4a5784bac83953a843504c9b6cc2aff5743d0654a1514d4551fffab4"
+    },
+    {
+      "path": "AssetSource/DNO_Parasaurolophus_A.blend",
+      "bytes": 206634,
+      "sha256": "d7ff284112f2508fc3313d3e93b55081ec9824045b9bb437536aa3b6ee0d8497"
+    },
+    {
+      "path": "AssetSource/DNO_Triceratops_A.blend",
+      "bytes": 207953,
+      "sha256": "a7474f57ef4575d363fb1361e316872fbef9b46bbbbd2c9ed34d957df1a65da1"
+    },
+    {
+      "path": "AssetSource/DNO_Velociraptor_A.blend",
+      "bytes": 203248,
+      "sha256": "a077bac1e04ba66a8e358ae0c0a60fed687cbfe757c2e147ff7a5ce7849b2538"
+    },
+    {
+      "path": "glb/CHR_Knight_Azure_A.glb",
+      "bytes": 644384,
+      "sha256": "e9e3070c11bd87d602c3b1ddc38fdb78b696673722b1e2a23e6eb55d59b54a22"
+    },
+    {
+      "path": "glb/CHR_Knight_Crimson_A.glb",
+      "bytes": 647328,
+      "sha256": "6c401c14b2079b7307f2773d661f7e3784e779efc86268536a4262f4fe4592e9"
+    },
+    {
+      "path": "glb/CHR_Knight_Jade_A.glb",
+      "bytes": 734336,
+      "sha256": "d31bb1432ab556de836c1574b0222c0007b46ca60a11044a122a234da8786981"
+    },
+    {
+      "path": "glb/DNO_Parasaurolophus_A.glb",
+      "bytes": 506916,
+      "sha256": "4cf2b63f8986be58f29865f9738a9df92cbd798ad5556a95575c8bd5d84b869a"
+    },
+    {
+      "path": "glb/DNO_Triceratops_A.glb",
+      "bytes": 527696,
+      "sha256": "45c750408e39993b876dd18948427ef8420bb452b90f7fb46837518d7c7567df"
+    },
+    {
+      "path": "glb/DNO_Velociraptor_A.glb",
+      "bytes": 508512,
+      "sha256": "f1e05ed22fba3f474a73877eda715149bdc871ac0447ec67565e26e52ec519cd"
+    },
+    {
+      "path": "previews/CHR_Knight_Azure_A_back.png",
+      "bytes": 165585,
+      "sha256": "59a47036fc10449a95acb29f25b4afb2a223d78fb85858f94e90b6675dcf83bd"
+    },
+    {
+      "path": "previews/CHR_Knight_Azure_A_front.png",
+      "bytes": 170974,
+      "sha256": "3f18cb79ba6f6b6d2bbaf4c6887e20b43240538e1f5a991df549e5bfbac56278"
+    },
+    {
+      "path": "previews/CHR_Knight_Azure_A_hero.png",
+      "bytes": 1502480,
+      "sha256": "0c745f9f48e5eb9fc85f743d3dd0a9affca5120c7598f999f0fb22e1e404cda3"
+    },
+    {
+      "path": "previews/CHR_Knight_Azure_A_side.png",
+      "bytes": 157509,
+      "sha256": "bbbd4f7d314923c6dd9eec491819c7e8c40ab06db1cb313d56bb5a37231a411b"
+    },
+    {
+      "path": "previews/CHR_Knight_Crimson_A_back.png",
+      "bytes": 171380,
+      "sha256": "cc680cbb1992637c8946dba0aec6feb14d33e32b02a6fd100b2a1a17a99f88ac"
+    },
+    {
+      "path": "previews/CHR_Knight_Crimson_A_front.png",
+      "bytes": 172853,
+      "sha256": "4c98c579fa1d9195885c827025580d0f18ef99cb30603ac301cfdea11df5a9ee"
+    },
+    {
+      "path": "previews/CHR_Knight_Crimson_A_hero.png",
+      "bytes": 1494235,
+      "sha256": "bc4a7af4f64cf62e88c5dd04d77ed85c1acbc82c1fdffe8253fce1b78b889f76"
+    },
+    {
+      "path": "previews/CHR_Knight_Crimson_A_side.png",
+      "bytes": 153358,
+      "sha256": "6ee741dc568162173f3dbaab318e487647d4749497a58e4d0b26e8bca6e35dfd"
+    },
+    {
+      "path": "previews/CHR_Knight_Jade_A_back.png",
+      "bytes": 164625,
+      "sha256": "1f434a9e214cdea97dd7f2ae476a57c6d5e733b805fd7511315ab5dd097b3494"
+    },
+    {
+      "path": "previews/CHR_Knight_Jade_A_front.png",
+      "bytes": 169521,
+      "sha256": "6afae762f2a700a4ac4b7afd2850688837c6ba6929eea7912d882b108b3e4e4a"
+    },
+    {
+      "path": "previews/CHR_Knight_Jade_A_hero.png",
+      "bytes": 1499787,
+      "sha256": "37dfcda5e63b90256381e16dddef9196129e01a8e09da5945193f7e1fd8e147b"
+    },
+    {
+      "path": "previews/CHR_Knight_Jade_A_side.png",
+      "bytes": 152649,
+      "sha256": "c7c3ddd06e2ef9444508d3e386dc335ae9f2e9b8de253c12311d7ff351675299"
+    },
+    {
+      "path": "previews/DNO_Parasaurolophus_A_back.png",
+      "bytes": 158646,
+      "sha256": "02cc8de0c473b9d1afa8dda0325b2f37f79e6db3ed3ba0a375e7cc7afc5936a5"
+    },
+    {
+      "path": "previews/DNO_Parasaurolophus_A_front.png",
+      "bytes": 159632,
+      "sha256": "87a7680464670326541814031bed130ff9ee2449cd2a3dae5e87d723621908cc"
+    },
+    {
+      "path": "previews/DNO_Parasaurolophus_A_hero.png",
+      "bytes": 1462946,
+      "sha256": "15acd0c24d23bc366a70fc951f2fc3edf80cddd385708ba0218d13d1c3a1ad21"
+    },
+    {
+      "path": "previews/DNO_Parasaurolophus_A_side.png",
+      "bytes": 90145,
+      "sha256": "bfb1192bebcd7244b162362fedc53be9c4270fd6028cae9d645c44df85625331"
+    },
+    {
+      "path": "previews/DNO_Triceratops_A_back.png",
+      "bytes": 288759,
+      "sha256": "78d63bc7f6a9d5ef382f42969d8729d9b592700e9aaf4110e3d86080d4ff0926"
+    },
+    {
+      "path": "previews/DNO_Triceratops_A_front.png",
+      "bytes": 291474,
+      "sha256": "f5b4bf80969bc9f2c5905cca4d58ae3adf9050129268e51cb6c36beb7f3da0eb"
+    },
+    {
+      "path": "previews/DNO_Triceratops_A_hero.png",
+      "bytes": 1493422,
+      "sha256": "76a6769ce21fc8382cbe4c0b98ae254724850792679bdeb38a1a3b70a605b9b0"
+    },
+    {
+      "path": "previews/DNO_Triceratops_A_side.png",
+      "bytes": 129229,
+      "sha256": "5c3144f1f1385aedaebef3c714edc3344bfe598f8dc4319bc5a1cff62e5b181d"
+    },
+    {
+      "path": "previews/DNO_Velociraptor_A_back.png",
+      "bytes": 164407,
+      "sha256": "40f01b491ad91cd7e442ef55e600fe8640953d649eed5843f359b1b654c1d623"
+    },
+    {
+      "path": "previews/DNO_Velociraptor_A_front.png",
+      "bytes": 166127,
+      "sha256": "07be0d8f575aabe86cda7ec7e84b8102f8a700729050441baca3ad1cc8fda0c2"
+    },
+    {
+      "path": "previews/DNO_Velociraptor_A_hero.png",
+      "bytes": 1449874,
+      "sha256": "f5b582368fc75ff896298822d101051732e6cbcb0c4534e0b94a4e953cfb64a2"
+    },
+    {
+      "path": "previews/DNO_Velociraptor_A_side.png",
+      "bytes": 81619,
+      "sha256": "cffac515777dcab9ba0a45cac9f0f9a20d2bca237edbd77fc26e95ea95f5a50f"
+    },
+    {
+      "path": "textures/Crownfall_Palette.png",
+      "bytes": 5091,
+      "sha256": "ab4a725487a46d98f9b4389b11c752bc786a7756573b912ff0858c6f5a5ace90"
+    }
+  ]
+}

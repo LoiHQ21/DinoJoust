@@ -10,6 +10,7 @@ This handoff uses files generated during the Crownfall discussions, plus the use
 
 ## Visual assets
 
+- `assets/roster/`: actual rigged 3D art prototypes and Blender-rendered previews, adapted from the Quaternius CC0 sources documented in [`assets/third_party/quaternius/README.md`](../../assets/third_party/quaternius/README.md). The source hashes and pack-specific license evidence are retained. These are not image-generator outputs or engine-validated production characters.
 - `assets/concepts/current/`: most recent four generated concepts, chibi-faceted fantasy + behind-rider direction.
 - `assets/concepts/archive_kingshot/`: older stylized rounded concept references.
 - `assets/concepts/archive_early/`: early semi-real or presentation/moodboard concepts. AI-generated text/numbers in images may be wrong.
