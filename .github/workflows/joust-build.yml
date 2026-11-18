@@ -83,9 +83,9 @@ jobs:
       - name: Prepare emulator and screen reader for the smoke test
         run: |
           sudo chmod a+rw /dev/kvm
-          if ! command -v tesseract >/dev/null; then
+          if ! command -v tesseract >/dev/null || ! command -v convert >/dev/null; then
             sudo apt-get update -qq
-            sudo apt-get install -y tesseract-ocr
+            sudo apt-get install -y tesseract-ocr imagemagick
           fi
       - name: Install and play one pass on Android 14
         uses: reactivecircus/android-emulator-runner@v2

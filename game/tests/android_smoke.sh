@@ -16,10 +16,12 @@ adb shell am start -W -n "$activity"
 wait_for_label() {
   local label=$1
   local screen="builds/android/screens/$2.png"
+  local region=$3
   echo "Waiting for $label"
   for attempt in {1..40}; do
     adb exec-out screencap -p > "$screen"
-    if tesseract "$screen" stdout 2>/dev/null | grep -iq "$label"; then
+    convert "$screen" -crop "$region" +repage "$RUNNER_TEMP/crownfall-button.png"
+    if tesseract "$RUNNER_TEMP/crownfall-button.png" stdout --psm 7 2>/dev/null | grep -iq "$label"; then
       return 0
     fi
     sleep 2
@@ -27,7 +29,7 @@ wait_for_label() {
   adb logcat -d -s godot AndroidRuntime
   return 1
 }
-wait_for_label 'Enter the lists' lists
+wait_for_label 'Enter the lists' lists 305x44+82+534
 adb shell input tap 242 556
-wait_for_label 'Next pass' result
+wait_for_label 'Next pass' result 245x45+436+547
 adb shell pidof "$package"
