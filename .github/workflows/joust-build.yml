@@ -94,7 +94,14 @@ jobs:
           target: default
           arch: x86_64
           profile: pixel_2
+          emulator-options: -no-window -gpu lavapipe -no-snapshot -noaudio -no-boot-anim
           script: bash game/tests/android_smoke.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Android-playtest-screens
+          path: builds/android/screens/
+          if-no-files-found: ignore
   windows-smoke:
     needs: export
     runs-on: windows-latest
