@@ -181,7 +181,7 @@ func make_knight():
 	G.box(shield,Vector3(0,.015,-.13),Vector3(.044,.30,.022),IVORY)
 	G.box(shield,Vector3(0,.05,-.13),Vector3(.22,.047,.022),IVORY)
 
-func pose(dt: float, pace: float, lance_aim: float, tell: bool, reaction: float, fallen: bool):
+func pose(dt: float, pace: float, lance_aim: float, tell: bool, reaction: float, fallen: bool, side_reach := 0.0, lowered := true):
 	gait += dt * (2.1 + pace*.88)
 	var weight := clampf(pace/7.0,.11,1.0)
 	trunk.position.y = (1.0-cos(2.0*gait))*.045*weight
@@ -194,8 +194,9 @@ func pose(dt: float, pace: float, lance_aim: float, tell: bool, reaction: float,
 		var phase := gait + (PI if j in [1,2] else 0.0)
 		legs[j].rotation.x = sin(phase)*.46*weight
 		legs[j].position.y = leg_home[j].y + maxf(0,cos(phase))*.13*weight
-	lance.rotation.y = -.46
-	lance.rotation.x = atan2(2.27 + lance_aim*.82 - (rider_base+.43),3.4)
+	lance.rotation.y = -asin(clampf((1.68+side_reach)/3.78,-1,1))
+	var pitch := atan2(2.27 + lance_aim*.82 - (rider_base+.43),3.4) if lowered else .54
+	lance.rotation.x = move_toward(lance.rotation.x,pitch,dt*6.0)
 	rider.position = Vector3(0,rider_base,0)
 	rider.rotation = Vector3(-.07*weight+sin(reaction*PI)*.25,0,0)
 	if fallen:

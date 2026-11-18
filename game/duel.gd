@@ -8,6 +8,9 @@ const REACH := TIP_FORWARD + PLATE_FORWARD
 const LANE := 1.05
 const TIP_BASE := 2.27
 const AIM_TRAVEL := 0.82
+const SIDE_REACH := 1.0
+const CLEAN_RADIUS := 0.15
+const SHIELD_RADIUS := 0.38
 const TERRAIN := {
 	"Royal Stone": {"accel": 1.0, "grip": 1.0, "recoil": 1.1},
 	"Rainsoft Clay": {"accel": 0.68, "grip": 0.74, "recoil": 0.89},
@@ -23,6 +26,8 @@ var points := [0, 0]
 var speed := [0.0, 0.0]
 var travel := [0.0, 0.0]
 var aim := [0.0, 0.0]
+var line_offset := 0.0 # Metres from the centre of the player’s lane.
+var side_aim := [0.0, 0.0] # Lateral lance reach, in world X.
 var release := [-1, -1]
 var target := [0.0, 0.0] # Shield heights, indexed by the attacking rider.
 var events: Array = []
@@ -47,6 +52,8 @@ func next_pass():
 	speed = [RAPTOR.cruise, FRILL.cruise]
 	travel = [0.0, 0.0]
 	aim = [-0.25, 0.0]
+	line_offset = 0.0
+	side_aim = [0.0, 0.0]
 	release = [-1, -1]
 	done = false
 	trace = []
@@ -65,36 +72,42 @@ func eta() -> float:
 	return maxf(0.0, gap()) / (speed[0] + speed[1])
 
 func snap_ready() -> bool:
-	return speed[0] >= 5.4 and speed[0] <= 8.8
+	return line_offset >= -.40 and speed[0] >= 5.4 and speed[0] <= 8.8
 
 func guard_ready() -> bool:
-	return speed[1] <= 7.75
+	return line_offset >= -.40 and speed[1] <= 7.75
 
-func move_mount(i: int, mount: Dictionary, drive: bool):
-	var goal: float = mount.top if drive else mount.cruise
-	var rate: float = mount.accel * TERRAIN[surface].accel if drive else 2.2 * TERRAIN[surface].grip
+func move_mount(i: int, mount: Dictionary, throttle: float):
+	var goal := lerpf(mount.cruise, mount.top, throttle)
+	var rate: float = mount.accel * TERRAIN[surface].accel if speed[i]<goal else 2.2 * TERRAIN[surface].grip
 	speed[i] = move_toward(speed[i], goal, rate * DT)
 	travel[i] += speed[i] * DT
 
-func step(drive: bool, height: float, commit: bool):
+func step(reins: Vector2, point: Vector2, lowered: bool):
 	if done:
 		return
 	tick += 1
-	var quantized := roundi(clampf(height, -1.0, 1.0) * 1000)
-	var sample := [drive, quantized, commit]
+	# Quantize before both recording and simulation so input logs reproduce a pass.
+	reins = reins.clamp(Vector2(-1,0),Vector2.ONE).snappedf(.001)
+	point = point.clamp(-Vector2.ONE,Vector2.ONE).snappedf(.001)
+	var sample := [reins.x, reins.y, point.x, point.y, lowered]
 	if sample != last_input:
-		trace.append([tick, drive, quantized, commit])
+		trace.append([tick] + sample)
 		last_input = sample
-	if release[0] < 0:
-		aim[0] = quantized / 1000.0
-		if commit:
-			release[0] = tick
+	line_offset = clampf(line_offset + reins.x * 1.7 * TERRAIN[surface].grip * DT, -1.75, .42)
+	side_aim[0] = point.x * SIDE_REACH
+	aim[0] = point.y
+	if lowered and release[0]<0:
+		release[0] = tick
+	elif not lowered:
+		release[0] = -1
 	if release[1] < 0:
 		aim[1] = target[1] + ai_error
+		side_aim[1] = clampf(line_offset,-SIDE_REACH,SIDE_REACH)
 		if eta() <= ai_lead:
 			release[1] = tick
-	move_mount(0, RAPTOR, drive)
-	move_mount(1, FRILL, speed[1] < FRILL.top * ai_pace)
+	move_mount(0, RAPTOR, reins.y)
+	move_mount(1, FRILL, 1.0 if speed[1]<FRILL.top*ai_pace else 0.0)
 	if gap() <= 0.0:
 		resolve_contact()
 
@@ -102,10 +115,11 @@ func step(drive: bool, height: float, commit: bool):
 # At crossing, both lances extend from their inner gauntlet into the opposite lane.
 func target_position(attacker: int) -> Vector3:
 	var z: float = -START+travel[1]+PLATE_FORWARD if attacker==0 else START-travel[0]-PLATE_FORWARD
-	return Vector3(LANE if attacker==0 else -LANE,TIP_BASE+target[attacker]*AIM_TRAVEL,z)
+	return Vector3(LANE if attacker==0 else -LANE+line_offset,TIP_BASE+target[attacker]*AIM_TRAVEL,z)
 
 func contact_tip(attacker: int) -> Vector3:
 	var tip := target_position(attacker)
+	tip.x = LANE+line_offset+side_aim[0] if attacker==0 else -LANE+side_aim[1]
 	tip.y = TIP_BASE+aim[attacker]*AIM_TRAVEL
 	return tip
 
@@ -115,19 +129,19 @@ func strike(i: int) -> Dictionary:
 	var grade := "Miss"
 	var reason := "Outside shield"
 	if release[i] < 0:
-		reason = "Lance held at crossing"
-	elif lead > 0.86:
+		reason = "Lance was raised"
+	elif i==1 and lead > 0.86:
 		reason = "Released too early"
-	elif lead < 0.10:
+	elif i==1 and lead < 0.10:
 		reason = "Released too late"
-	elif miss_by <= 0.15 and lead >= 0.22 and lead <= 0.58:
+	elif miss_by <= CLEAN_RADIUS and (i==0 or (lead >= 0.22 and lead <= 0.58)):
 		grade = "Clean"
 		reason = "Shield centre"
-	elif miss_by <= 0.38:
+	elif miss_by <= SHIELD_RADIUS:
 		grade = "Glance"
-		reason = "Edge of strike window"
+		reason = "Shield rim"
 	return {"grade":grade, "reason":reason, "points":{"Clean":2,"Glance":1,"Miss":0}[grade],
-		"commit_tick":release[i], "aim":aim[i], "target":target[i], "height_error_m":miss_by,
+		"commit_tick":release[i], "aim":aim[i], "target":target[i], "error_m":miss_by, "line_offset_m":line_offset, "side_aim_m":side_aim[i],
 		"contact_world":Array(PackedFloat32Array([contact_tip(i).x,contact_tip(i).y,contact_tip(i).z]))}
 
 func resolve_contact():
@@ -164,5 +178,5 @@ func resolve_contact():
 	history.append(trace.duplicate(true))
 
 func recording() -> Dictionary:
-	return {"version":1, "seed":seed_value, "terrain":surface, "mounts":[RAPTOR.name, FRILL.name],
+	return {"version":2, "seed":seed_value, "terrain":surface, "mounts":[RAPTOR.name, FRILL.name],
 		"frequency":60, "passes":history, "contacts":events}

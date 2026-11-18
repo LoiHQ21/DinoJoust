@@ -19,8 +19,8 @@ var audio_on := true
 var low_detail := OS.has_feature("web") or OS.has_feature("mobile")
 var shadows: Array[MeshInstance3D] = []
 var debug := false
-var height := -.25
-var pending_commit := false
+var touch_reins := Vector2.ZERO
+var aim_position := Vector2.ZERO
 var mouse_aim := false
 var drive_finger := -1
 var aim_finger := -1
@@ -73,6 +73,7 @@ func menu():
 	for spark in sparks:
 		spark.hide()
 	player.position = Vector3(-.8,0,.2)
+	player.trunk.rotation.z = 0
 	player.rotation.y = -.22
 	enemy.position = Vector3(1.6,0,-11.4)
 	enemy.rotation.y = PI-.22
@@ -94,7 +95,7 @@ func start_pass():
 	phase = "charge"
 	paused = false
 	reset_input()
-	height = duel.aim[0]
+	aim_position = Vector2.ZERO
 	enemy.target_plate.position.y = Duel.TIP_BASE + duel.target[0]*Duel.AIM_TRAVEL - enemy.rider_base
 	player.target_plate.position.y = Duel.TIP_BASE + duel.target[1]*Duel.AIM_TRAVEL - player.rider_base
 	follow = 0
@@ -113,24 +114,45 @@ func reset_input():
 	drive_finger = -1
 	aim_finger = -1
 	mouse_aim = false
-	pending_commit = false
+	touch_reins = Vector2.ZERO
 
-func driving() -> bool:
-	return held_keys.has(KEY_SPACE) or drive_finger >= 0
+func reins() -> Vector2:
+	if drive_finger >= 0:
+		return Vector2(touch_reins.x,maxf(0,-touch_reins.y))
+	var right := held_keys.has(KEY_D) or held_keys.has(KEY_RIGHT)
+	var left := held_keys.has(KEY_A) or held_keys.has(KEY_LEFT)
+	var sprint := held_keys.has(KEY_W) or held_keys.has(KEY_UP) or held_keys.has(KEY_SPACE)
+	return Vector2(int(right)-int(left),float(sprint))
 
-func visible_aim() -> float:
-	return duel.aim[0] if duel.release[0]>=0 else height
+func aiming() -> bool:
+	return mouse_aim or aim_finger>=0
+
+func shield_screen() -> Vector2:
+	return cam.unproject_position(enemy_shield())
+
+func aim_pixels_per_metre() -> float:
+	# Magnify the distant shield so its rim stays reachable with a thumb.
+	var projected := cam.unproject_position(enemy_shield()+Vector3.RIGHT)
+	return maxf(112.0*hud.scale_ui,projected.distance_to(shield_screen()))
+
+func lance_point() -> Vector2:
+	if not aiming():
+		return Vector2(0,-.25)
+	var offset := (aim_position-shield_screen())/aim_pixels_per_metre()
+	return Vector2((offset.x-duel.line_offset)/Duel.SIDE_REACH,
+		duel.target[0]-offset.y/Duel.AIM_TRAVEL).clamp(-Vector2.ONE,Vector2.ONE)
 
 func enemy_shield() -> Vector3:
 	return duel.target_position(0)
 
 func update_positions():
-	player.position = Vector3(-Duel.LANE,0,Duel.START-duel.travel[0])
+	player.position = Vector3(-Duel.LANE+duel.line_offset,0,Duel.START-duel.travel[0])
 	enemy.position = Vector3(Duel.LANE,0,-Duel.START+duel.travel[1])
 
 func chase_camera():
-	cam.position = player.position+Vector3(1.47,3.22,5.25)
-	cam.look_at(player.position+Vector3(.97,1.70,-7.3),Vector3.UP)
+	var anchor := player.position-Vector3.RIGHT*duel.line_offset*.55
+	cam.position = anchor+Vector3(1.47,3.22,5.25)
+	cam.look_at(anchor+Vector3(.97,1.70,-7.3),Vector3.UP)
 
 func play(tone: String):
 	if audio_on:
@@ -140,10 +162,7 @@ func _physics_process(dt: float):
 	if paused:
 		return
 	if phase == "charge":
-		if duel.release[0]<0:
-			height = clampf(height+dt*1.2*(int(held_keys.has(KEY_UP))-int(held_keys.has(KEY_DOWN))),-1,1)
-		duel.step(driving(),height,pending_commit)
-		pending_commit = false
+		duel.step(reins(),lance_point(),aiming())
 		update_positions()
 		chase_camera()
 		next_hoof -= dt
@@ -205,8 +224,9 @@ func _process(dt: float):
 			enemy.pose(dt,0,.40,false,0,false)
 		elif phase in ["charge","follow"]:
 			var reaction := clampf(follow/1.3,0,1) if phase=="follow" else 0.0
-			player.pose(dt,duel.speed[0],visible_aim(),duel.eta()<1.15 and duel.snap_ready(),reaction,duel.seat[0]==0)
-			enemy.pose(dt,duel.speed[1],duel.aim[1],duel.eta()<1.15 and duel.guard_ready(),reaction,duel.seat[1]==0)
+			player.pose(dt,duel.speed[0],duel.aim[0],duel.eta()<1.15 and duel.snap_ready(),reaction,duel.seat[0]==0,duel.side_aim[0],duel.release[0]>=0)
+			player.trunk.rotation.z = -reins().x*.09
+			enemy.pose(dt,duel.speed[1],duel.aim[1],duel.eta()<1.15 and duel.guard_ready(),reaction,duel.seat[1]==0,-duel.side_aim[1],duel.release[1]>=0 or duel.eta()<1.5)
 	hud.queue_redraw()
 
 func action(id: String):
@@ -238,9 +258,8 @@ func _notification(what: int):
 		paused = true
 		reset_input()
 
-func drag_aim(dy: float):
-	if duel.release[0]<0:
-		height = clampf(height-dy/maxf(1.0,hud.size.y)*3.5,-1,1)
+func set_touch_reins(pos: Vector2):
+	touch_reins = ((hud.local_ui(pos)-hud.rein_center())/hud.REIN_RADIUS).limit_length(1.0)
 
 func _input(event: InputEvent):
 	if not hud.is_inside_tree():
@@ -268,8 +287,6 @@ func _input(event: InputEvent):
 						action("next")
 					elif phase=="follow":
 						show_summary()
-					elif phase=="charge":
-						pending_commit = true
 				_:
 					if phase=="charge" and not paused:
 						held_keys[event.keycode] = true
@@ -282,13 +299,13 @@ func _input(event: InputEvent):
 				action(id)
 			elif phase=="charge" and not paused:
 				mouse_aim = true
+				aim_position = event.position
 		elif mouse_aim:
 			mouse_aim = false
-			pending_commit = phase=="charge" and not paused
 	elif event is InputEventMouseMotion:
 		hud.pointer = event.position
 		if mouse_aim:
-			drag_aim(event.relative.y)
+			aim_position = event.position
 	elif event is InputEventScreenTouch:
 		hud.on_touch = true
 		if event.pressed:
@@ -296,14 +313,20 @@ func _input(event: InputEvent):
 			if id:
 				action(id)
 			elif phase=="charge" and not paused:
-				if event.position.x < hud.size.x*.5 and drive_finger<0:
-					drive_finger = event.index
-				elif event.position.x >= hud.size.x*.5 and aim_finger<0:
+				if hud.local_ui(event.position).distance_to(hud.rein_center())<=hud.REIN_RADIUS+28:
+					if drive_finger<0:
+						drive_finger = event.index
+						set_touch_reins(event.position)
+				elif aim_finger<0:
 					aim_finger = event.index
+					aim_position = event.position
 		elif event.index==drive_finger:
 			drive_finger = -1
+			touch_reins = Vector2.ZERO
 		elif event.index==aim_finger:
 			aim_finger = -1
-			pending_commit = not event.canceled and phase=="charge" and not paused
-	elif event is InputEventScreenDrag and event.index==aim_finger:
-		drag_aim(event.relative.y)
+	elif event is InputEventScreenDrag:
+		if event.index==drive_finger:
+			set_touch_reins(event.position)
+		elif event.index==aim_finger:
+			aim_position = event.position

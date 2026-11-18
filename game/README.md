@@ -21,9 +21,9 @@ Open http://localhost:8000 to play the web export. Use a WebGL 2 browser. The we
 
 ## Play on Android
 
-Download the single-file **Crownfall-Playtest.apk** artifact from the test branch’s build workflow while signed into GitHub. Open the APK on the phone and tap **Install**, then **Open**. If prompted, allow installation from the browser or file manager you used. The game opens in landscape. Tap **Enter the lists**, hold the left half to accelerate, and drag vertically on the right. Lift your right thumb in the gold timing window.
+Download the single-file **Crownfall-Playtest.apk** artifact from the test branch’s build workflow while signed into GitHub. Open the APK on the phone and tap **Install**, then **Open**. If prompted, allow installation from the browser or file manager you used. The game opens in landscape. Tap **Enter the lists**. The raptor moves forward on its own. Press the ring over the rival’s shield and keep your finger on it as you pass. Lift to raise your lance. To change your line or speed, drag the bottom-left reins sideways or forward with your other thumb.
 
-The package uses an isolated playtest application ID and includes ARM64, ARMv7 and x86-64. CI creates a temporary test signing key per build. To replace a build signed by a different key, uninstall the earlier playtest first. For a local debug APK, configure the Android SDK and Java SDK in Godot, install the Android export template, then run the following from the repository root:
+This build appears as **Crownfall Reins** and installs alongside the original **Crownfall Playtest**. It uses a separate application ID and includes ARM64, ARMv7 and x86-64. CI creates a temporary test signing key per build. To replace a build signed by a different key, uninstall the earlier playtest first. For a local debug APK, configure the Android SDK and Java SDK in Godot, install the Android export template, then run the following from the repository root:
 
 ```sh
 mkdir -p builds/android
@@ -36,7 +36,7 @@ godot --headless --path game --export-debug 'Android Playtest'
 |---|---|
 | arena.tscn, game.gd | Main scene, input routing, chase camera, pass sequence and reactions |
 | duel.gd | 60 Hz movement, guided contact, terrain modifiers, seeded AI and verdict |
-| hud.gd | Lists, controls, projected shield marker, timing indicator and scorecards |
+| hud.gd | Lists, controls, projected shield marker, two-axis reins and scorecards |
 | art/ | Rigid animated mesh rigs, arena geometry, audio synthesis and Cinzel font |
 | tests/ | Fixed-step replay and full-scene input regression tests |
 | export_presets.cfg | Windows, Linux, Android and single-thread web presets |
@@ -49,15 +49,15 @@ godot --headless --path game --script res://tests/play_test.gd
 python tools/validate_data.py
 ```
 
-F3 shows the shield height, lance aim, commitment frame, speed-related closing distance and seed. After each contact the game writes the current match to `user://last_joust.json`. The file contains tick-indexed input changes and each pass’s contact point, timing, strike grades, mount actions, points and stability. The replay test reconstructs the fixed-step run from those input changes.
+F3 shows the shield height, lance height, lowering frame, speed-related closing distance and seed. After each contact the game writes the current match to `user://last_joust.json`. The file contains version 2 tick-indexed rein and lance input changes and each pass’s contact point, timing, strike grades, mount actions, points and stability. The replay test reconstructs the fixed-step run from those input changes.
 
 ## Acceptance evidence
 
 - **Verified** — 96 reproducible matches covering two surfaces, 24 seeds, accurate and uncommitted riders. Replaying all sampled input traces reproduces the contact logs. The checks exercise acceleration, coasting, all three hit grades, snap and guard, sudden death, and reachable wins and losses.
-- **Verified** — the scene-input test starts a match, pauses, holds throttle and aim with separate touch IDs, lands a clean hit, advances through the summary and starts a fresh rematch. The desktop renderer was inspected at 1280×720 through the lists, approach, release window, follow-through and results.
+- **Verified** — the scene-input test starts a match, pauses, steers, gallops and tracks the shield with separate touch IDs, lands a clean hit, advances through the summary and starts a fresh rematch. The desktop renderer was inspected at 1280×720 through the lists, approach, release window, follow-through and results.
 - **Unverified** — novice difficulty and matchup fairness. The first art pass uses rigid joint animation and a scripted unseat arc. Human playtesting and physical phone GPU, touch and thermal measurements are pending.
 - **Environment-blocked locally** — native Windows execution and physical iOS/Android devices. The workflow includes a separate Windows runner for a headless launch check.
 
-The next playtest should put the same encounter on a landscape phone and record whether a first-time rider can align the height markers and release in the gold window.
+The next playtest should put the same encounter on a landscape phone and record whether a first-time rider can land a hit by following the moving shield.
 
 The 3D models and sounds are generated by the project. The Cinzel font and Godot notices are included in art/Cinzel-OFL.txt and NOTICE.txt.

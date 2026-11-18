@@ -17,12 +17,13 @@ godot --path game
 
 | Action | Desktop | Landscape touch |
 |---|---|---|
-| Accelerate / coast | Hold / release Space | Hold / release the left half |
-| Set lance height | Hold left mouse and drag up or down, or use ↑ / ↓ | Drag vertically on the right half |
-| Commit | Release mouse, or press Enter | Lift your aiming finger |
+| Guide the mount | A / D or left / right arrows | Drag the bottom-left reins sideways |
+| Gallop / coast | Hold / release W, ↑ or Space | Push the reins forward for more speed, lift to coast |
+| Lower and aim the lance | Hold the left mouse button on the rider’s marked shield | Press the shield ring and follow it as the rival moves |
+| Strike / raise | Keep aiming through the pass to strike, release to raise | Hold through contact, lift to raise |
 | Pause | Escape | Pause button |
 
-Line up the white height marker with the gold target on the lower right. Commit as the timing diamond crosses the gold window. A clean hit earns two lance points, a glance earns one. Between about 19 and 32 km/h the raptor can snap at the rival’s harness. A braced frill absorbs part of that hit. The pass summary shows both strikes, both mount actions, speed and seat loss.
+The mount trots automatically. For a first pass, leave the reins alone and follow the rival’s shield with one finger. The reticle turns green inside the shield. A clean hit earns two lance points, a glance earns one. Between about 19 and 32 km/h the raptor can snap at the rival’s harness. A braced frill absorbs part of that hit. The pass summary shows both strikes, both mount actions, speed and seat loss.
 
 See [build steps, replay checks and prototype limits](game/README.md). Windows and web packages are also produced by the [test-build workflow](https://github.com/LoiHQ21/DinoJoust/actions/workflows/joust-build.yml).
 

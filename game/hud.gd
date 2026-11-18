@@ -1,4 +1,5 @@
 extends Control
+const REIN_RADIUS := 64.0
 const TITLE = preload("res://art/Cinzel.ttf")
 const INK := Color("#18242c")
 const MID := Color("#34404a")
@@ -125,8 +126,8 @@ func menu():
 	words("points after three passes.",x,y+383,19,FADE)
 	button("terrain",Rect2(x,y+411,380,44),"‹     "+g.surface+"     ›")
 	button("start",Rect2(x,y+468,380,60),"Enter the lists    ›",true)
-	words("Hold left to charge  •  Drag right to aim" if on_touch else "Space to charge  •  Drag mouse vertically to aim",x,y+563,16,PAPER)
-	words("Match the gold height mark. Release in the gold window.",x,y+589,15,FADE)
+	words("Drag the reins to ride. Hold the rival’s shield to hit." if on_touch else "A / D to steer. W to gallop. Hold click on the shield.",x,y+563,16,PAPER)
+	words("Keep aiming as you pass. Lift to raise your lance.",x,y+589,15,FADE)
 	var bx := bounds.x-325
 	plate(Rect2(bx,bounds.y-98,291,66),Color("#1b2b33ea"))
 	diamond(Vector2(bx+24,bounds.y-64),7,Color("#de7058"))
@@ -151,6 +152,55 @@ func rider_panel(right: bool):
 	bar(x+17,65,263,d.seat[i]/100.0,tint)
 	words("SEAT STABILITY",x+17,90,12,FADE,bold)
 
+func rein_center() -> Vector2:
+	return Vector2(121,bounds.y-119)
+
+func draw_reins():
+	var hub := rein_center()
+	var deflection: Vector2 = g.touch_reins if on_touch else Vector2(g.reins().x,-g.reins().y).limit_length(1.0)
+	var rim := Color("#e5c68ac9")
+	draw_circle(hub,REIN_RADIUS,Color("#15252cba"),true,-1,true)
+	draw_arc(hub,REIN_RADIUS,0,TAU,64,rim,2,true)
+	for dir: Vector2 in [Vector2.LEFT,Vector2.RIGHT,Vector2.UP]:
+		var arrow := hub+dir*(REIN_RADIUS-12)
+		var wing := dir.orthogonal()*5
+		draw_polyline(PackedVector2Array([arrow-dir*6+wing,arrow,arrow-dir*6-wing]),rim,2,true)
+	var knob := hub+deflection*(REIN_RADIUS-18)
+	draw_circle(knob,19,INK,true,-1,true)
+	draw_arc(knob,19,0,TAU,36,GOLD,2,true)
+	diamond(knob,5,GOLD)
+	var gallop := "PUSH TO GALLOP" if on_touch else "W / SPACE   GALLOP"
+	var steer := "DRAG TO STEER" if on_touch else "A / D   STEER"
+	plate(Rect2(hub.x-84,hub.y-104,168,29),Color("#192831e8"))
+	words(gallop,hub.x-84,hub.y-84,14,PAPER,bold,HORIZONTAL_ALIGNMENT_CENTER,168)
+	plate(Rect2(hub.x-84,hub.y+72,168,29),Color("#192831e8"))
+	words(steer,hub.x-84,hub.y+92,14,PAPER,bold,HORIZONTAL_ALIGNMENT_CENTER,168)
+
+func shield_sight():
+	var d = g.duel
+	var center := local_ui(g.shield_screen())
+	var scale_m: float = g.aim_pixels_per_metre()/scale_ui
+	var radius: float = d.SHIELD_RADIUS*scale_m
+	var offset := Vector2(d.line_offset+d.side_aim[0],(d.target[0]-d.aim[0])*d.AIM_TRAVEL)
+	var down: bool = d.release[0]>=0
+	var aligned: bool = down and offset.length()<=d.SHIELD_RADIUS
+	var tint := GREEN if aligned else GOLD
+	draw_arc(center,radius,0,TAU,64,INK,5,true)
+	draw_arc(center,radius,0,TAU,64,tint,2,true)
+	draw_arc(center,d.CLEAN_RADIUS*scale_m,0,TAU,32,Color(tint,.84),1.5,true)
+	if down:
+		var tip := center+offset*scale_m
+		for dir: Vector2 in [Vector2.LEFT,Vector2.RIGHT,Vector2.UP,Vector2.DOWN]:
+			line(tip+dir*5,tip+dir*13,INK,5)
+			line(tip+dir*5,tip+dir*13,PAPER,2.5)
+		diamond(tip,2.5,PAPER)
+	var prompt := "HOLD ON SHIELD" if on_touch else "HOLD CLICK ON SHIELD"
+	if down:
+		prompt = "ON TARGET" if aligned else "AIM AT SHIELD"
+	var tag := Vector2(center.x,center.y-radius-28)
+	plate(Rect2(tag.x-108,tag.y-14,216,30),Color("#192831ed"),tint)
+	words(prompt,tag.x-108,tag.y+7,16,tint,bold,HORIZONTAL_ALIGNMENT_CENTER,216)
+
 func live():
 	var d = g.duel
 	rider_panel(false)
@@ -159,51 +209,14 @@ func live():
 	plate(Rect2(cx-102,17,204,72),Color("#192831ee"))
 	centered("SUDDEN DEATH" if d.pass_no==4 else "PASS  %d  /  3" % d.pass_no,43,17,GOLD,bold)
 	centered("%d   ◆   %d" % [d.points[0],d.points[1]],74,23,PAPER,TITLE)
-	var by := bounds.y-114
-	var throttle := Rect2(22,by,260,94)
-	plate(throttle,Color("#3d4845") if g.driving() else INK)
-	words("THROTTLE",41,by+26,15,GOLD,bold)
-	words("%02d" % roundi(d.speed[0]*3.6),40,by+67,39,PAPER,bold)
-	words("km/h",102,by+66,17,FADE)
-	words("HOLD LEFT" if on_touch else "HOLD SPACE",155,by+58,14,GOLD,bold)
-	bar(41,by+78,221,d.speed[0]/12.2,Color("#e6b26f"))
-	var aimx := bounds.x-324
-	plate(Rect2(aimx,by,302,94))
-	words("LANCE HEIGHT",aimx+16,by+25,15,GOLD,bold)
-	words("LOCKED" if d.release[0]>=0 else ("DRAG" if on_touch else "MOUSE DRAG"),aimx+168,by+25,14,FADE,bold,HORIZONTAL_ALIGNMENT_RIGHT,115)
-	var ax := aimx+20
-	var width := 262.0
-	var tgt: float = ax+(d.target[0]+1)*width*.5
-	line(Vector2(ax,by+53),Vector2(ax+width,by+53),MID,6)
-	line(Vector2(tgt-24,by+53),Vector2(tgt+24,by+53),Color("#997d50"),9)
-	diamond(Vector2(tgt,by+53),6,GOLD)
-	diamond(Vector2(ax+(g.visible_aim()+1)*width*.5,by+53),7,PAPER)
-	words("LOW",ax,by+82,13,FADE,bold)
-	words("HIGH",ax+218,by+82,13,FADE,bold,HORIZONTAL_ALIGNMENT_RIGHT,44)
 	if g.phase == "follow":
 		var hit: Dictionary = d.events.back().hits[0]
 		plate(Rect2(cx-166,bounds.y*.22,332,65),INK)
 		centered(hit.grade.to_upper()+" STRIKE",bounds.y*.22+42,30,GOLD,TITLE)
 		return
-	var enemy_point: Vector3 = g.enemy_shield()
-	var pos := local_ui(g.cam.unproject_position(enemy_point))
-	var aimed := local_ui(g.cam.unproject_position(enemy_point+Vector3.UP*(g.visible_aim()-d.target[0])*.82))
-	if not g.cam.is_position_behind(enemy_point):
-		draw_arc(pos,15,0,TAU,32,Color("#302920"),4,true)
-		draw_arc(pos,15,0,TAU,32,GOLD,2,true)
-		line(aimed-Vector2(23,0),aimed-Vector2(8,0),PAPER,2)
-		line(aimed+Vector2(8,0),aimed+Vector2(23,0),PAPER,2)
-		diamond(aimed,3,PAPER)
-	var timing_y := bounds.y-94
+	draw_reins()
+	shield_sight()
 	var eta: float = d.eta()
-	var locked: bool = d.release[0]>=0
-	var prompt := "Lance committed" if locked else ("Release now" if eta<=.58 and eta>=.22 else ("Too late" if eta<.10 else "Hold aim for the gold window"))
-	plate(Rect2(cx-185,timing_y,370,74),Color("#192831ec"))
-	centered(prompt,timing_y+28,20,GOLD if eta<=.58 and not locked else PAPER,bold)
-	var left := cx-155
-	line(Vector2(left,timing_y+51),Vector2(left+310,timing_y+51),MID,7)
-	draw_rect(Rect2(left+310*(1-.58/2.5),timing_y+46,310*.36/2.5,10),GOLD)
-	diamond(Vector2(left+310*(1-clampf(eta/2.5,0,1)),timing_y+51),7,PAPER)
 	if eta<2.5:
 		var tell := "FRILL GUARD" if d.guard_ready() else "RIVAL CHARGING"
 		var own := "SNAP READY" if d.snap_ready() else "RAPTOR STRIDE"

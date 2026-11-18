@@ -30,6 +30,7 @@
 | D024 | EXPERIMENT | Ragdoll armor, helmet, lance fragments may affect subsequent pass equipment statistics | Not yet tested, would complicate balance |
 | D025 | BACKLOG | Detachable heads, limbs, weapons, shields and armor plus physical chain reactions | User volunteered an idea for later brainstorming, not a mandatory feature |
 | D026 | BACKLOG | Exhibition mismatch fights, opponent grapple sequences and post-dismount dinosaur actions | Optional experiments, avoid early scope creep |
+| D027 | EXPERIMENT | Guided forward movement with optional lateral reins and direct two-dimensional shield aiming. A held lance strikes at crossing. | Android playtest feedback requested freer controls and guidance in the arena. |
 
 ## Supersession history
 
