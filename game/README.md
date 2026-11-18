@@ -4,7 +4,7 @@ Godot 4.6.3 standard edition, Compatibility renderer. The exhibition uses one le
 
 ## Run and export
 
-Open this directory’s project.godot and press F5. The repository README covers the controls. The Actions workflow exports downloadable Windows and web packages on test branches. Unzip the Windows package and run Crownfall.exe.
+Open this directory’s project.godot and press F5. The repository README covers the controls. The Actions workflow exports downloadable Windows, web and signed Android playtest packages on test branches. Unzip the Windows package and run Crownfall.exe.
 
 For local release builds, install Godot’s matching 4.6.3 export templates. From the repository root run:
 
@@ -19,6 +19,17 @@ python -m http.server 8000 --directory builds/web
 
 Open http://localhost:8000 to play the web export. Use a WebGL 2 browser. The web preset uses a single thread. Serve over HTTPS for remote phone tests. The lists screen includes sound and rendering detail controls. Low detail reduces 3D resolution and uses contact shadows, and is the default in web and mobile builds.
 
+## Play on Android
+
+Download the single-file **Crownfall-Playtest.apk** artifact from the test branch’s build workflow while signed into GitHub. Open the APK on the phone and tap **Install**, then **Open**. If prompted, allow installation from the browser or file manager you used. The game opens in landscape. Tap **Enter the lists**, hold the left half to accelerate, and drag vertically on the right. Lift your right thumb in the gold timing window.
+
+The package uses an isolated playtest application ID and includes ARM64, ARMv7 and x86-64. CI creates a temporary test signing key per build. To replace a build signed by a different key, uninstall the earlier playtest first. For a local debug APK, configure the Android SDK and Java SDK in Godot, install the Android export template, then run the following from the repository root:
+
+```sh
+mkdir -p builds/android
+godot --headless --path game --export-debug 'Android Playtest'
+```
+
 ## Project files
 
 | Path | Purpose |
@@ -28,7 +39,7 @@ Open http://localhost:8000 to play the web export. Use a WebGL 2 browser. The we
 | hud.gd | Lists, controls, projected shield marker, timing indicator and scorecards |
 | art/ | Rigid animated mesh rigs, arena geometry, audio synthesis and Cinzel font |
 | tests/ | Fixed-step replay and full-scene input regression tests |
-| export_presets.cfg | Windows, Linux and single-thread web release presets |
+| export_presets.cfg | Windows, Linux, Android and single-thread web presets |
 
 ## Reproduce a check
 

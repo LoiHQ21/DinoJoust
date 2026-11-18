@@ -25,7 +25,7 @@ jobs:
           curl --fail --location --retry 3 "$release/Godot_v4.6.3-stable_export_templates.tpz" -o "$RUNNER_TEMP/templates.zip"
           templates="$HOME/.local/share/godot/export_templates/4.6.3.stable"
           mkdir -p "$templates"
-          unzip -jq "$RUNNER_TEMP/templates.zip" 'templates/windows_release_x86_64.exe' 'templates/web_nothreads_release.zip' 'templates/version.txt' -d "$templates"
+          unzip -jq "$RUNNER_TEMP/templates.zip" 'templates/android_release.apk' 'templates/windows_release_x86_64.exe' 'templates/web_nothreads_release.zip' 'templates/version.txt' -d "$templates"
       - name: Exercise duel and scene input
         working-directory: game
         run: |
@@ -49,6 +49,47 @@ jobs:
         with:
           name: Crownfall-Web
           path: builds/web/
+      - name: Sign and verify Android playtest
+        working-directory: game
+        shell: bash
+        run: |
+          mkdir -p ../builds/android
+          export GODOT_ANDROID_KEYSTORE_RELEASE_PATH="$RUNNER_TEMP/playtest.p12"
+          export GODOT_ANDROID_KEYSTORE_RELEASE_USER=playtest
+          export GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD="$(openssl rand -hex 24)"
+          keytool -genkeypair -alias playtest -keyalg RSA -keysize 2048 -validity 3650 \
+            -storetype PKCS12 -keystore "$GODOT_ANDROID_KEYSTORE_RELEASE_PATH" \
+            -storepass:env GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD -dname 'CN=Crownfall Playtest'
+          godot --headless --export-release 'Android Playtest'
+          build_tools=$(find "$ANDROID_HOME/build-tools" -name apksigner | sort -V | tail -1)
+          "$build_tools" verify --verbose ../builds/android/Crownfall-Playtest.apk
+          "${build_tools%/*}/aapt" dump badging ../builds/android/Crownfall-Playtest.apk
+      - uses: actions/upload-artifact@v7
+        with:
+          path: builds/android/Crownfall-Playtest.apk
+          archive: false
+          if-no-files-found: error
+  android-smoke:
+    needs: export
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v8
+        with:
+          name: Crownfall-Playtest.apk
+          path: builds/android
+          skip-decompress: true
+      - name: Give the runner access to KVM
+        run: sudo setfacl -m "u:$(id -un):rw" /dev/kvm
+      - name: Install and play one pass on Android 14
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: default
+          arch: x86_64
+          profile: pixel_2
+          script: bash game/tests/android_smoke.sh
   windows-smoke:
     needs: export
     runs-on: windows-latest
