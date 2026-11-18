@@ -1,10 +1,32 @@
 # Jurassic Joust: Crownfall
 
-**Repository handoff / documentation-first starter** · consolidated 18 November 2026 · **not a playable game yet**
+**Playable test branch** · Godot 4.6.3 · Windows x64, Linux x64 and WebGL 2
 
 > **Pitch:** Ride a stylized dinosaur into compact medieval jousting tournaments. Win with a combination of rider lance skill, your dinosaur's natural combat instincts, terrain reading, and momentum. Dramatic ragdoll reactions are the reward, not the scoring engine.
 
-## Start here
+## Play the exhibition
+
+Ride the Ember Knight’s Velociraptor against the Azure Warden’s Protoceratops. Choose Royal Stone for fast acceleration or Rainsoft Clay for a slower charge. Unseat the rival to win immediately. Riders who stay mounted go to lance points after three passes, with one sudden-death pass for a tie.
+
+Open `game/project.godot` in Godot 4.6.3 and press **F6** with the arena open, or **F5** from anywhere in the project. From a shell in the repository root:
+
+```sh
+godot --headless --path game --editor --import
+godot --path game
+```
+
+| Action | Desktop | Landscape touch |
+|---|---|---|
+| Accelerate / coast | Hold / release Space | Hold / release the left half |
+| Set lance height | Hold left mouse and drag up or down, or use ↑ / ↓ | Drag vertically on the right half |
+| Commit | Release mouse, or press Enter | Lift your aiming finger |
+| Pause | Escape | Pause button |
+
+Line up the white height marker with the gold target on the lower right. Commit as the timing diamond crosses the gold window. A clean hit earns two lance points, a glance earns one. Between about 19 and 32 km/h the raptor can snap at the rival’s harness. A braced frill absorbs part of that hit. The pass summary shows both strikes, both mount actions, speed and seat loss.
+
+See [build steps, replay checks and prototype limits](game/README.md). Windows and web packages are also produced by the [test-build workflow](https://github.com/LoiHQ21/DinoJoust/actions/workflows/joust-build.yml).
+
+## Design handoff
 
 1. Read [`AGENTS.md`](AGENTS.md) before running Codex. It establishes project rules and prevents accidental scope creep.
 2. Read [`docs/handoff/START_HERE.md`](docs/handoff/START_HERE.md) for current status and the next task.
@@ -32,17 +54,9 @@ The current visual target is **original faceted chibi-anime fantasy 3D**: readab
 - Archived original GDD v0.2 (Markdown and Word) for traceability
 - Task backlog and GitHub issue templates
 
-## What's not present
+## Test-branch engine choice
 
-No Unity/Godot/Unreal project, build, rigs, GLB/FBX files, proprietary meshes, playable prototype, gameplay telemetry, or tested balance values. Reference pictures are not production assets. **Do not claim the game is implemented or tested.**
-
-## Recommended immediate next step
-
-Make a graybox true-3D joust in a chosen engine with two rigs or primitive stand-ins, guided lanes, throttle and lance controls, a stable chase camera, fixed-step contact outcome logging, and an obvious result screen. **Do not start with the campaign hub or full character roster.**
-
-## Engine and tooling
-
-**Unity URP is a proposal**, not a user-approved lock. Confirm the engine in a project decision before creating engine-specific folders. Codex should default to a self-contained vertical slice and document any assumptions. Candidate alternatives are Godot 4 or Unreal, provided realistic mobile performance testing is planned.
+Godot 4.6.3 with its Compatibility renderer is the engine for this exhibition. It supports a native desktop build and a single-thread WebGL build for landscape phones. The production engine choice and the larger GDD roadmap remain open. The test scene builds its animated meshes and scenery at runtime.
 
 ## Repository usage
 

@@ -1,0 +1,65 @@
+name: Crownfall test build
+on:
+  push:
+    branches: ['test-build/**']
+    paths: ['game/**', '.github/workflows/joust-build.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Godot 4.6.3 and release templates
+        shell: bash
+        run: |
+          set -eu
+          release=https://github.com/godotengine/godot-builds/releases/download/4.6.3-stable
+          curl --fail --location --retry 3 "$release/Godot_v4.6.3-stable_linux.x86_64.zip" -o "$RUNNER_TEMP/editor.zip"
+          unzip -q "$RUNNER_TEMP/editor.zip" -d "$RUNNER_TEMP/editor"
+          mv "$RUNNER_TEMP/editor/Godot_v4.6.3-stable_linux.x86_64" "$RUNNER_TEMP/editor/godot"
+          echo "$RUNNER_TEMP/editor" >> "$GITHUB_PATH"
+          curl --fail --location --retry 3 "$release/Godot_v4.6.3-stable_export_templates.tpz" -o "$RUNNER_TEMP/templates.zip"
+          templates="$HOME/.local/share/godot/export_templates/4.6.3.stable"
+          mkdir -p "$templates"
+          unzip -jq "$RUNNER_TEMP/templates.zip" 'templates/windows_release_x86_64.exe' 'templates/web_nothreads_release.zip' 'templates/version.txt' -d "$templates"
+      - name: Exercise duel and scene input
+        working-directory: game
+        run: |
+          godot --headless --editor --import
+          godot --headless --script tests/duel_test.gd
+          godot --headless --script tests/play_test.gd
+      - name: Export desktop and web builds
+        working-directory: game
+        run: |
+          mkdir -p ../builds/{windows,web}
+          godot --headless --export-release 'Windows Desktop'
+          godot --headless --export-release Web
+          for target in windows web; do
+            cp NOTICE.txt art/Cinzel-OFL.txt "../builds/$target/"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Crownfall-Windows-x64
+          path: builds/windows/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Crownfall-Web
+          path: builds/web/
+  windows-smoke:
+    needs: export
+    runs-on: windows-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: Crownfall-Windows-x64
+      - name: Launch the exported game
+        shell: pwsh
+        run: |
+          $game = Start-Process -FilePath .\Crownfall.exe -ArgumentList '--headless','--quit-after','30','--log-file','smoke.log' -PassThru
+          if (-not $game.WaitForExit(60000)) { $game.Kill(); throw "Game launch timed out" }
+          Get-Content smoke.log
+          if ($game.ExitCode -ne 0 -or (Select-String smoke.log -Pattern 'SCRIPT ERROR|^ERROR:')) { throw "Game failed its launch check" }
