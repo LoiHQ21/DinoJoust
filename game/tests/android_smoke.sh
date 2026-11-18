@@ -7,7 +7,8 @@ adb install -r "$apk"
 adb shell wm size 720x1280
 adb shell wm density 240
 adb logcat -c
-adb shell am start -W -n "$package/com.godot.game.GodotApp"
+activity=$(adb shell cmd package resolve-activity --brief -a android.intent.action.MAIN -c android.intent.category.LAUNCHER "$package" | tail -1 | tr -d '\r')
+adb shell am start -W -n "$activity"
 
 # Read the actual rendered HUD, then tap the same control a phone user sees.
 wait_for_label() {
