@@ -17,11 +17,14 @@ wait_for_label() {
   local label=$1
   local screen="builds/android/screens/$2.png"
   local region=$3
+  local rendered
   echo "Waiting for $label"
   for attempt in {1..40}; do
     adb exec-out screencap -p > "$screen"
     convert "$screen" -crop "$region" +repage "$RUNNER_TEMP/crownfall-button.png"
-    if tesseract "$RUNNER_TEMP/crownfall-button.png" stdout --psm 7 2>/dev/null | grep -iq "$label"; then
+    rendered=$(tesseract "$RUNNER_TEMP/crownfall-button.png" stdout --psm 7 2>/dev/null)
+    if grep -Eiq "$label" <<< "$rendered"; then
+      matched_label=$rendered
       return 0
     fi
     sleep 2
@@ -42,6 +45,14 @@ wait_for_label 'Next pass' result 245x45+436+547
 adb shell input motionevent UP 1070 480
 adb shell input tap 548 569
 aim_from_right
+wait_for_label 'Next pass|Ride again' second-pass 245x45+436+547
+if grep -iq 'Next pass' <<< "$matched_label"; then
+  adb shell input motionevent UP 1070 480
+  adb shell input tap 548 569
+  aim_from_right
+fi
 wait_for_label 'Ride again' finish 245x45+436+547
 adb shell input motionevent UP 1070 480
+adb shell input tap 548 569
+wait_for_label 'Next pass' rematch-first-pass 245x45+436+547
 adb shell pidof "$package"
