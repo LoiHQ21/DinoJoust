@@ -10,6 +10,8 @@ func _ready():
 		voices.append(voice)
 	clips.hoof = make([72.0],.075,.34,true)
 	clips.horn = make([293.66,392.0,493.88],.125,.22,false)
+	clips.final_horn = make([392.0,392.0,523.25],.18,.28,false)
+	clips.strap = make([587.33,98.0],.08,.42,true)
 	clips.hit = make([164.81,523.25],.115,.42,true)
 	clips.miss = make([220.0,164.81],.11,.17,false)
 	clips.win = make([392.0,493.88,587.33,783.99],.15,.24,false)

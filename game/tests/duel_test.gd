@@ -38,7 +38,7 @@ func _initialize():
 	check(wide_hit.hits[0].grade=="Miss","Steering outside lance reach causes a miss")
 	verify_replay(wide.recording())
 	var snap = pass_with(Duel.new(),false,0,7.2)
-	check(snap.beast[0]=="Predator snap" and snap.hits[0].points==0 and snap.seat_after[1]<100,"Beast contact without lance points")
+	check(snap.beast[0]=="Predator snap" and not snap.hits[0].landed and snap.seat_after[1]<100,"Beast contact with raised lance")
 	check(clean.beast[0]=="Ran through","Sprint suppresses snap")
 	var guard := Duel.new()
 	guard.speed=[7.5,6.5]
@@ -57,15 +57,34 @@ func _initialize():
 						d.next_pass()
 				if skill and d.result=="Victory": wins += 1
 				if not skill and d.result=="Defeat": losses += 1
+				check(d.pass_no in [2,3],"Duel resolves in two or three passes")
 				verify_replay(d.recording())
 	check(wins>0 and losses>0,"Win and loss reachable")
-	var tie := Duel.new()
-	tie.pass_no = 3
-	tie.resolve_contact()
-	check(tie.result=="","Equal lance points grant sudden death")
-	tie.next_pass()
-	tie.resolve_contact()
-	check(tie.result!="","Sudden death terminates")
+	var loss_by_pass := Duel.new()
+	for i in Duel.MAX_PASSES:
+		loss_by_pass.resolve_contact()
+		if i<2:
+			check(loss_by_pass.result=="","Both mounted before the last pass")
+		loss_by_pass.next_pass()
+	check(loss_by_pass.result=="Defeat" and loss_by_pass.pass_no==3,"Defender keeps crown after three misses")
+	var final := Duel.new()
+	final.pass_no = 3
+	var last = pass_with(final,true,0)
+	check(last.hits[0].grade=="Clean" and final.seat[1]==0,"Final clean can unseat an untouched defender")
+	var both := Duel.new()
+	both.pass_no = 3
+	both.tick = 100
+	both.release = [80,80]
+	both.aim = both.target.duplicate()
+	both.aim[1] += .05
+	both.resolve_contact()
+	check(both.seat==[0,0] and both.result=="Victory","Closer lance wins a double fall")
+	var two := Duel.new(123,"Rainsoft Clay")
+	pass_with(two,true,0,4.4)
+	check(two.seat[1]>0 and two.seat[1]<=Duel.STRAP_BREAK,"First clean breaks a strap")
+	two.next_pass()
+	pass_with(two,true,0,4.4)
+	check(two.seat[1]==0 and two.result!="" and two.pass_no==2,"Two clean hits end the duel")
 	print("96 matches replayed. Accurate wins: %d/48. Uncommitted losses: %d/48. Failures: %d" % [wins,losses,failures])
 	quit(1 if failures else 0)
 

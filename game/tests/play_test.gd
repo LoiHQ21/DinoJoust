@@ -35,32 +35,48 @@ func run():
 	expect(g.paused,"Escape pauses charge")
 	g._input(key(KEY_ENTER))
 	g.hud.layout()
-	var left: Vector2 = g.hud.origin+g.hud.rein_center()*g.hud.scale_ui
-	var right: Vector2 = g.shield_screen()
+	# Start near the centre seam on the left and well away from the shield on the right.
+	var size: Vector2 = g.hud.size
+	var left := size*Vector2(.49,.31)
+	var right := size*Vector2(.86,.78)
 	g._input(touch(2,left,true))
 	g._input(touch(7,right,true))
+	expect(g.rein_origin==left and g.aim_origin==right,"Both controls anchor at touch-down")
+	expect(g.reins()==Vector2.ZERO and g.lance_point()==Vector2(0,-.25),"Touch-down never moves reins or aim")
+	g._input(touch(9,size*Vector2(.15,.81),true))
+	expect(g.drive_finger==2 and g.aim_finger==7,"Extra fingers cannot steal a control")
 	var drag := InputEventScreenDrag.new()
 	drag.index = 2
-	drag.position = left+Vector2(-32,-48)*g.hud.scale_ui
+	drag.position = left+Vector2(32,-48)*g.hud.scale_ui
 	g._input(drag)
 	for i in 10:
 		g._physics_process(1.0/60)
-	expect(g.duel.line_offset<0 and g.duel.speed[0]>g.duel.RAPTOR.cruise,"Reins steer and accelerate the mount")
-	expect(g.aiming() and g.duel.release[0]>=0,"Shield finger lowers lance while steering")
-	g._input(touch(2,left,false))
-	expect(g.reins()==Vector2.ZERO and g.aiming(),"Lifting reins leaves lance lowered")
+	expect(g.duel.line_offset>0 and g.duel.speed[0]>g.duel.RAPTOR.cruise,"Reins retain ownership across the seam")
+	g._input(touch(2,drag.position,false))
+	expect(g.drive_finger<0 and g.reins()==Vector2.ZERO and g.aiming(),"Releasing reins leaves lance independent")
+	var start_aim: Vector2 = g.lance_point()
 	drag.index = 7
-	drag.position = right+Vector2(60,-40)*g.hud.scale_ui
+	drag.position = right+Vector2(20,-26)*g.hud.scale_ui
 	g._input(drag)
-	g._physics_process(1.0/60)
-	expect(g.duel.side_aim[0]>.25 and g.duel.aim[0]>g.duel.target[0],"Drag moves lance across both shield axes")
-	g._input(touch(7,drag.position,false))
-	g._physics_process(1.0/60)
-	expect(g.duel.release[0]<0 and not g.aiming(),"Lift raises lance and allows a fresh aim")
-	g._input(touch(7,g.shield_screen(),true))
+	var displaced: Vector2 = g.lance_point()
+	expect(displaced.x>start_aim.x and displaced.y>start_aim.y,"Off-centre thumb moves lance on both axes")
+	for i in 8:
+		g._physics_process(1.0/60)
+	expect(g.lance_point()==displaced,"Holding the thumb still preserves the angle")
+	var cancel := touch(7,drag.position,false)
+	cancel.canceled = true
+	g._input(cancel)
+	expect(g.aim_finger<0 and not g.aiming(),"Cancellation removes the aim pad")
+	var grip := size*Vector2(.79,.66)
+	g._input(touch(4,grip,true))
+	expect(g.lance_point()==displaced,"Re-gripping elsewhere preserves lance direction")
+	var goal := Vector2(-g.duel.line_offset/g.duel.SIDE_REACH,g.duel.target[0])
+	var correction := goal-displaced
+	drag.index = 4
+	drag.position = grip + Vector2(correction.x,-correction.y)*g.AIM_SENSITIVITY*g.hud.scale_ui
+	g._input(drag)
+	expect(drag.position.x>size.x*.7,"Aim without approaching the opponent on screen")
 	while g.phase=="charge":
-		drag.position = g.shield_screen()
-		g._input(drag)
 		g._physics_process(1.0/60)
 	expect(g.phase=="follow" and g.duel.events[0].hits[0].grade=="Clean","Clean pass from mapped input")
 	g._input(key(KEY_ENTER))

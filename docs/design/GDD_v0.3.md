@@ -1,4 +1,7 @@
 # JURASSIC JOUST: CROWNFALL
+
+**Android crown-challenge playtest, 19 November 2026.** On the test branch, two floating thumb pads replace the original joust gestures. Drag on the left to ride and on the right to aim the lance from a distance. The challenger has three passes to unseat the Warden. Saddle damage carries between passes. A clean final-pass strike unseats a rider, and a surviving Warden defends the crown. Double falls go to the closer landed lance, with exact ties held by the defender. These exhibition rules supersede the points finish described in the original design below.
+
 ## Game Design Document — v0.3 | Canonical handoff | 18 November 2026
 
 **Platforms:** Windows PC + iOS/Android phones in LANDSCAPE mode. **Engine candidate:** Unity URP (PROPOSED, not approved; evaluate Godot 4 or Unreal against PC + mobile landscape). **Rendering:** genuine real-time 3D environments, characters, animation, and contact. **Core interaction:** throttle + aim/release lance. **Genre:** bite-sized action-sports jousting + roguelite draft + tournament campaign.

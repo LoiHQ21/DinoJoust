@@ -6,7 +6,7 @@
 
 ## Play the exhibition
 
-Ride the Ember Knight’s Velociraptor against the Azure Warden’s Protoceratops. Choose Royal Stone for fast acceleration or Rainsoft Clay for a slower charge. Unseat the rival to win immediately. Riders who stay mounted go to lance points after three passes, with one sudden-death pass for a tie.
+Ride the Ember Knight’s Velociraptor against the Azure Warden’s Protoceratops. Choose Royal Stone for fast acceleration or Rainsoft Clay for a slower charge. Unseat the rival to win immediately. Two clean hits break the rival’s saddle. On the third and final pass a clean hit unseats even a fresh rider. If both stay mounted, the defending Warden keeps the crown. If both fall, the closer landed lance wins. An exact tie belongs to the defender.
 
 Open `game/project.godot` in Godot 4.6.3 and press **F6** with the arena open, or **F5** from anywhere in the project. From a shell in the repository root:
 
@@ -17,13 +17,13 @@ godot --path game
 
 | Action | Desktop | Landscape touch |
 |---|---|---|
-| Guide the mount | A / D or left / right arrows | Drag the bottom-left reins sideways |
-| Gallop / coast | Hold / release W, ↑ or Space | Push the reins forward for more speed, lift to coast |
-| Lower and aim the lance | Hold the left mouse button on the rider’s marked shield | Press the shield ring and follow it as the rival moves |
+| Guide the mount | A / D or left / right arrows | Touch anywhere on the left half and drag sideways |
+| Gallop / coast | Hold / release W, ↑ or Space | Push up from that touch for more speed, lift to coast |
+| Lower and aim the lance | Hold the left mouse button on the rider’s marked shield | Touch anywhere on the right half. Drag in any direction to move the crosshair |
 | Strike / raise | Keep aiming through the pass to strike, release to raise | Hold through contact, lift to raise |
 | Pause | Escape | Pause button |
 
-The mount trots automatically. For a first pass, leave the reins alone and follow the rival’s shield with one finger. The reticle turns green inside the shield. A clean hit earns two lance points, a glance earns one. Between about 19 and 32 km/h the raptor can snap at the rival’s harness. A braced frill absorbs part of that hit. The pass summary shows both strikes, both mount actions, speed and seat loss.
+The raptor trots automatically. Try the right thumb alone first. Slide it until the white crosshair sits inside the shield ring, then hold steady through contact. You can lift and re-grip elsewhere on the right without losing your lance angle. Each thumb pad appears under the finger while touching. Between about 19 and 32 km/h the raptor can snap at the rival’s harness. A braced frill absorbs part of that hit. The pass summary shows both strikes, both mount actions, speed and seat loss.
 
 See [build steps, replay checks and prototype limits](game/README.md). Windows and web packages are also produced by the [test-build workflow](https://github.com/LoiHQ21/DinoJoust/actions/workflows/joust-build.yml).
 

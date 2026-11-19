@@ -20,6 +20,8 @@ var cape: Node3D
 var legs: Array[Node3D] = []
 var leg_home: Array[Vector3] = []
 var gait := 0.0
+var loose_saddle := false
+var girth: Node3D
 var rider_base: float
 
 func build(is_raptor: bool):
@@ -122,7 +124,10 @@ func make_leg(side: int, width: float, height: float, z: float):
 
 func make_knight():
 	G.gem(trunk,Vector3(0,rider_base-.02,0),Vector3(.60,.17,.63),LEATHER)
+	girth = G.joint(trunk,Vector3(0,rider_base,0))
 	for s in [-1,1]:
+		G.rod(girth,Vector3(s*.43,.06,.26),Vector3(s*.57,-.30,.15),.052,.052,LEATHER)
+		G.gem(girth,Vector3(s*.56,-.21,.17),Vector3(.07,.09,.06),GOLD)
 		var saddlecloth := G.gem(trunk,Vector3(s*.48,rider_base-.20,.08),Vector3(.13,.34,.43),crest)
 		saddlecloth.rotation.z = -s*.24
 		G.gem(trunk,Vector3(s*.55,rider_base-.18,.07),Vector3(.09,.13,.13),GOLD)
@@ -197,8 +202,9 @@ func pose(dt: float, pace: float, lance_aim: float, tell: bool, reaction: float,
 	lance.rotation.y = -asin(clampf((1.68+side_reach)/3.78,-1,1))
 	var pitch := atan2(2.27 + lance_aim*.82 - (rider_base+.43),3.4) if lowered else .54
 	lance.rotation.x = move_toward(lance.rotation.x,pitch,dt*6.0)
+	girth.visible = not loose_saddle
 	rider.position = Vector3(0,rider_base,0)
-	rider.rotation = Vector3(-.07*weight+sin(reaction*PI)*.25,0,0)
+	rider.rotation = Vector3(-.07*weight+sin(reaction*PI)*.25,0,.09*sin(gait)+.07 if loose_saddle else 0.0)
 	if fallen:
 		rider.position += Vector3(-2.4*reaction,3.5*sin(PI*reaction)-1.30*reaction,1.8*reaction)
 		rider.rotation.z = reaction*4.6

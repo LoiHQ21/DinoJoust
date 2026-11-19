@@ -2,7 +2,7 @@
 set -euo pipefail
 
 apk=builds/android/Crownfall-Playtest.apk
-package=org.crownfall.joust.playtest.reins
+package=org.crownfall.joust.playtest.duel
 adb install -r "$apk"
 mkdir -p builds/android/screens
 adb shell settings put secure immersive_mode_confirmations confirmed
@@ -31,11 +31,17 @@ wait_for_label() {
 }
 wait_for_label 'Enter the lists' lists 305x44+82+534
 adb shell input tap 242 556
-# Move the reins forwards and sideways, then lower the lance over the rival.
-adb shell input swipe 121 601 145 550 900
-adb shell input motionevent DOWN 676 272
+# The left and right gestures both start away from the shield and old fixed pad.
+adb shell input swipe 345 425 345 370 450
+aim_from_right() {
+  adb shell 'input motionevent DOWN 1070 510 && input motionevent MOVE 1070 480'
+}
+aim_from_right
 adb exec-out screencap -p > builds/android/screens/riding.png
-sleep 2
-adb shell input motionevent UP 676 272
 wait_for_label 'Next pass' result 245x45+436+547
+adb shell input motionevent UP 1070 480
+adb shell input tap 548 569
+aim_from_right
+wait_for_label 'Ride again' finish 245x45+436+547
+adb shell input motionevent UP 1070 480
 adb shell pidof "$package"

@@ -1,5 +1,7 @@
 extends RefCounted
 ## Authoritative state. All distances are metres, input is sampled once per 60 Hz tick.
+const MAX_PASSES := 3
+const STRAP_BREAK := 50
 const DT := 1.0 / 60.0
 const START := 58.0
 const TIP_FORWARD := 3.77
@@ -22,7 +24,6 @@ var surface: String
 var pass_no := 0
 var tick := 0
 var seat := [100, 100]
-var points := [0, 0]
 var speed := [0.0, 0.0]
 var travel := [0.0, 0.0]
 var aim := [0.0, 0.0]
@@ -47,6 +48,8 @@ func _init(match_seed := 1234, ground := "Royal Stone"):
 	next_pass()
 
 func next_pass():
+	if result!="" or pass_no>=MAX_PASSES:
+		return
 	pass_no += 1
 	tick = 0
 	speed = [RAPTOR.cruise, FRILL.cruise]
@@ -140,7 +143,7 @@ func strike(i: int) -> Dictionary:
 	elif miss_by <= SHIELD_RADIUS:
 		grade = "Glance"
 		reason = "Shield rim"
-	return {"grade":grade, "reason":reason, "points":{"Clean":2,"Glance":1,"Miss":0}[grade],
+	return {"grade":grade, "reason":reason, "landed":grade!="Miss",
 		"commit_tick":release[i], "aim":aim[i], "target":target[i], "error_m":miss_by, "line_offset_m":line_offset, "side_aim_m":side_aim[i],
 		"contact_world":Array(PackedFloat32Array([contact_tip(i).x,contact_tip(i).y,contact_tip(i).z]))}
 
@@ -152,7 +155,7 @@ func resolve_contact():
 	var guard := guard_ready()
 	var beast := ["Predator snap" if snap else "Ran through", "Frill guard" if guard else "Ran through"]
 	for i in 2:
-		var base: float = [0.0, 16.0, 37.0][hits[i].points]
+		var base: float = {"Miss":0.0, "Glance":26.0, "Clean":78.0}[hits[i].grade]
 		var damage := roundi(base * (0.72 + speed[i] / 27.0) * TERRAIN[surface].recoil)
 		if i == 0:
 			if guard:
@@ -161,22 +164,31 @@ func resolve_contact():
 				damage += 3 if guard else 10
 		elif guard:
 			damage += 3
-		seat[1-i] = maxi(0, seat[1-i] - damage)
-		points[i] += hits[i].points
-	if seat.min() == 0:
-		verdict = "Double unseat" if seat.max() == 0 else "Unseated"
-		result = "Draw" if seat.max() == 0 else ("Victory" if seat[1] == 0 else "Defeat")
-	elif pass_no >= 3:
-		if points[0] != points[1]:
-			verdict = "Lance points"
-			result = "Victory" if points[0] > points[1] else "Defeat"
-		elif pass_no == 4:
-			verdict = "Remaining stability"
-			result = "Draw" if seat[0] == seat[1] else ("Victory" if seat[0] > seat[1] else "Defeat")
+		# A single opening blow can break a strap, but the rider gets a second pass.
+		damage = mini(damage,85)
+		if pass_no==MAX_PASSES and hits[i].grade=="Clean":
+			damage = before[1-i]
+		seat[1-i] = maxi(0, before[1-i] - damage)
+	if seat[0]==0 and seat[1]==0:
+		# On a double fall, the closer landed lance wins. The champion holds an exact tie.
+		var ember_wins: bool = hits[0].landed and (not hits[1].landed or hits[0].error_m<hits[1].error_m)
+		result = "Victory" if ember_wins else "Defeat"
+		if hits[0].landed != hits[1].landed:
+			verdict = "Double fall · only lance to land"
+		elif hits[0].landed and hits[0].error_m!=hits[1].error_m:
+			verdict = "Double fall · closer strike"
+		else:
+			verdict = "Double fall · defender holds tie"
+	elif seat.min()==0:
+		result = "Victory" if seat[1]==0 else "Defeat"
+		verdict = "Warden unseated" if seat[1]==0 else "Ember Knight unseated"
+	elif pass_no==MAX_PASSES:
+		result = "Defeat"
+		verdict = "Warden held the saddle"
 	events.append({"pass":pass_no, "tick":tick, "hits":hits, "beast":beast, "speed":speed.duplicate(),
-		"seat_before":before, "seat_after":seat.duplicate(), "points":points.duplicate(), "verdict":verdict, "result":result})
+		"seat_before":before, "seat_after":seat.duplicate(), "verdict":verdict, "result":result})
 	history.append(trace.duplicate(true))
 
 func recording() -> Dictionary:
-	return {"version":2, "seed":seed_value, "terrain":surface, "mounts":[RAPTOR.name, FRILL.name],
+	return {"version":3, "seed":seed_value, "terrain":surface, "mounts":[RAPTOR.name, FRILL.name],
 		"frequency":60, "passes":history, "contacts":events}

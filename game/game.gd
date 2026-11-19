@@ -20,6 +20,11 @@ var low_detail := OS.has_feature("web") or OS.has_feature("mobile")
 var shadows: Array[MeshInstance3D] = []
 var debug := false
 var touch_reins := Vector2.ZERO
+const AIM_SENSITIVITY := 70.0 # Logical pixels to traverse one lance axis.
+var rein_origin := Vector2.ZERO
+var aim_origin := Vector2.ZERO
+var aim_last_touch := Vector2.ZERO
+var touch_lance := Vector2(0,-.25)
 var aim_position := Vector2.ZERO
 var mouse_aim := false
 var drive_finger := -1
@@ -73,6 +78,8 @@ func menu():
 	for spark in sparks:
 		spark.hide()
 	player.position = Vector3(-.8,0,.2)
+	player.loose_saddle = false
+	enemy.loose_saddle = false
 	player.trunk.rotation.z = 0
 	player.rotation.y = -.22
 	enemy.position = Vector3(1.6,0,-11.4)
@@ -95,7 +102,7 @@ func start_pass():
 	phase = "charge"
 	paused = false
 	reset_input()
-	aim_position = Vector2.ZERO
+	touch_lance = Vector2(0,-.25)
 	enemy.target_plate.position.y = Duel.TIP_BASE + duel.target[0]*Duel.AIM_TRAVEL - enemy.rider_base
 	player.target_plate.position.y = Duel.TIP_BASE + duel.target[1]*Duel.AIM_TRAVEL - player.rider_base
 	follow = 0
@@ -107,9 +114,10 @@ func start_pass():
 		spark.hide()
 	update_positions()
 	chase_camera()
-	play("horn")
+	play("final_horn" if duel.pass_no==Duel.MAX_PASSES else "horn")
 
 func reset_input():
+	hud.buttons.clear()
 	held_keys.clear()
 	drive_finger = -1
 	aim_finger = -1
@@ -136,8 +144,8 @@ func aim_pixels_per_metre() -> float:
 	return maxf(112.0*hud.scale_ui,projected.distance_to(shield_screen()))
 
 func lance_point() -> Vector2:
-	if not aiming():
-		return Vector2(0,-.25)
+	if aim_finger>=0 or not mouse_aim:
+		return touch_lance
 	var offset := (aim_position-shield_screen())/aim_pixels_per_metre()
 	return Vector2((offset.x-duel.line_offset)/Duel.SIDE_REACH,
 		duel.target[0]-offset.y/Duel.AIM_TRAVEL).clamp(-Vector2.ONE,Vector2.ONE)
@@ -172,10 +180,17 @@ func _physics_process(dt: float):
 		if duel.done:
 			phase = "follow"
 			end_positions = [player.position,enemy.position]
-			spark_origin = enemy_shield() if duel.events.back().hits[0].points>0 else player.position+Vector3.UP*2.25
+			var impact: Dictionary = duel.events.back()
+			spark_origin = enemy_shield() if impact.hits[0].landed else player.position+Vector3.UP*2.25
 			reset_input()
-			var contact: bool = duel.events.back().hits[0].points+duel.events.back().hits[1].points>0
-			play("hit" if contact else "miss")
+			if impact.hits[0].landed or impact.hits[1].landed:
+				play("hit")
+			else:
+				play("miss")
+			for i in 2:
+				if impact.seat_before[i]>Duel.STRAP_BREAK and duel.seat[i]<=Duel.STRAP_BREAK:
+					play("strap")
+					break
 			save_recording()
 	elif phase=="follow":
 		follow += dt
@@ -192,7 +207,7 @@ func _physics_process(dt: float):
 			show_summary()
 
 func update_sparks():
-	var contact: bool = duel.events.back().hits[0].points+duel.events.back().hits[1].points>0
+	var contact: bool = duel.events.back().hits[0].landed or duel.events.back().hits[1].landed
 	for i in sparks.size():
 		var spark := sparks[i]
 		spark.visible = contact and follow<.42
@@ -223,6 +238,8 @@ func _process(dt: float):
 			player.pose(dt,0,.30,false,0,false)
 			enemy.pose(dt,0,.40,false,0,false)
 		elif phase in ["charge","follow"]:
+			player.loose_saddle = duel.seat[0]<=Duel.STRAP_BREAK
+			enemy.loose_saddle = duel.seat[1]<=Duel.STRAP_BREAK
 			var reaction := clampf(follow/1.3,0,1) if phase=="follow" else 0.0
 			player.pose(dt,duel.speed[0],duel.aim[0],duel.eta()<1.15 and duel.snap_ready(),reaction,duel.seat[0]==0,duel.side_aim[0],duel.release[0]>=0)
 			player.trunk.rotation.z = -reins().x*.09
@@ -259,7 +276,7 @@ func _notification(what: int):
 		reset_input()
 
 func set_touch_reins(pos: Vector2):
-	touch_reins = ((hud.local_ui(pos)-hud.rein_center())/hud.REIN_RADIUS).limit_length(1.0)
+	touch_reins = ((pos-rein_origin)/(hud.scale_ui*hud.PAD_RADIUS)).limit_length(1.0)
 
 func _input(event: InputEvent):
 	if not hud.is_inside_tree():
@@ -308,18 +325,21 @@ func _input(event: InputEvent):
 			aim_position = event.position
 	elif event is InputEventScreenTouch:
 		hud.on_touch = true
-		if event.pressed:
+		if event.pressed and not event.canceled:
 			var id := hud.action_at(event.position)
 			if id:
 				action(id)
 			elif phase=="charge" and not paused:
-				if hud.local_ui(event.position).distance_to(hud.rein_center())<=hud.REIN_RADIUS+28:
+				# Assign by starting half. The same finger keeps ownership across the seam.
+				if event.position.x < hud.size.x*.5:
 					if drive_finger<0:
 						drive_finger = event.index
-						set_touch_reins(event.position)
+						rein_origin = event.position
+						touch_reins = Vector2.ZERO
 				elif aim_finger<0:
 					aim_finger = event.index
-					aim_position = event.position
+					aim_origin = event.position
+					aim_last_touch = event.position
 		elif event.index==drive_finger:
 			drive_finger = -1
 			touch_reins = Vector2.ZERO
@@ -329,4 +349,6 @@ func _input(event: InputEvent):
 		if event.index==drive_finger:
 			set_touch_reins(event.position)
 		elif event.index==aim_finger:
-			aim_position = event.position
+			var delta: Vector2 = (event.position-aim_last_touch)/(hud.scale_ui*AIM_SENSITIVITY)
+			touch_lance = (touch_lance+Vector2(delta.x,-delta.y)).clamp(-Vector2.ONE,Vector2.ONE)
+			aim_last_touch = event.position

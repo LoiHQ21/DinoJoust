@@ -31,6 +31,7 @@
 | D025 | BACKLOG | Detachable heads, limbs, weapons, shields and armor plus physical chain reactions | User volunteered an idea for later brainstorming, not a mandatory feature |
 | D026 | BACKLOG | Exhibition mismatch fights, opponent grapple sequences and post-dismount dinosaur actions | Optional experiments, avoid early scope creep |
 | D027 | EXPERIMENT | Guided forward movement with optional lateral reins and direct two-dimensional shield aiming. A held lance strikes at crossing. | Android playtest feedback requested freer controls and guidance in the arena. |
+| D028 | LOCKED for playtest | Either thumb can start anywhere on its half. Touch pads appear only during contact. Right-thumb movement controls lance angle remotely. Duels end by pass three without lance points. | Owner’s Android playtest feedback, 2026-11-19. Supersedes D027 touch mapping and D016 scoring on this branch. |
 
 ## Supersession history
 

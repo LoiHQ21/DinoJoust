@@ -1,5 +1,5 @@
 extends Control
-const REIN_RADIUS := 64.0
+const PAD_RADIUS := 64.0
 const TITLE = preload("res://art/Cinzel.ttf")
 const INK := Color("#18242c")
 const MID := Color("#34404a")
@@ -122,12 +122,12 @@ func menu():
 	draw_colored_polygon(PackedVector2Array([Vector2(x,y+240),Vector2(x+295,y+240),Vector2(x+284,y+259),Vector2(x+295,y+278),Vector2(x,y+278)]),RED)
 	words("C R O W N F A L L",x+17,y+267,23,PAPER,TITLE)
 	words("Light Division Exhibition",x,y+323,25,PAPER,TITLE)
-	words("Unseat the rival knight or lead on lance",x,y+357,19,FADE)
-	words("points after three passes.",x,y+383,19,FADE)
+	words("Unseat the Warden in three passes.",x,y+357,19,FADE)
+	words("If still mounted, the Warden keeps the crown.",x,y+383,19,FADE)
 	button("terrain",Rect2(x,y+411,380,44),"‹     "+g.surface+"     ›")
 	button("start",Rect2(x,y+468,380,60),"Enter the lists    ›",true)
-	words("Drag the reins to ride. Hold the rival’s shield to hit." if on_touch else "A / D to steer. W to gallop. Hold click on the shield.",x,y+563,16,PAPER)
-	words("Keep aiming as you pass. Lift to raise your lance.",x,y+589,15,FADE)
+	words("Drag on the left to steer. Push up to gallop." if on_touch else "A / D to steer. W to gallop. Hold click on the shield.",x,y+563,16,PAPER)
+	words("Drag on the right to aim. Hold through impact." if on_touch else "Keep aiming as you pass. Lift to raise your lance.",x,y+589,15,FADE)
 	var bx := bounds.x-325
 	plate(Rect2(bx,bounds.y-98,291,66),Color("#1b2b33ea"))
 	diamond(Vector2(bx+24,bounds.y-64),7,Color("#de7058"))
@@ -150,31 +150,17 @@ func rider_panel(right: bool):
 	words("AZURE WARDEN" if right else "EMBER KNIGHT",x+40,49,19,PAPER,bold)
 	words(str(d.seat[i]),x+230,50,22,tint,bold,HORIZONTAL_ALIGNMENT_RIGHT,47)
 	bar(x+17,65,263,d.seat[i]/100.0,tint)
-	words("SEAT STABILITY",x+17,90,12,FADE,bold)
+	words("STRAP BROKEN" if d.seat[i]<=d.STRAP_BREAK else "SADDLE INTACT",x+17,90,12,GOLD if d.seat[i]<=d.STRAP_BREAK else FADE,bold)
 
-func rein_center() -> Vector2:
-	return Vector2(121,bounds.y-119)
-
-func draw_reins():
-	var hub := rein_center()
-	var deflection: Vector2 = g.touch_reins if on_touch else Vector2(g.reins().x,-g.reins().y).limit_length(1.0)
-	var rim := Color("#e5c68ac9")
-	draw_circle(hub,REIN_RADIUS,Color("#15252cba"),true,-1,true)
-	draw_arc(hub,REIN_RADIUS,0,TAU,64,rim,2,true)
-	for dir: Vector2 in [Vector2.LEFT,Vector2.RIGHT,Vector2.UP]:
-		var arrow := hub+dir*(REIN_RADIUS-12)
-		var wing := dir.orthogonal()*5
-		draw_polyline(PackedVector2Array([arrow-dir*6+wing,arrow,arrow-dir*6-wing]),rim,2,true)
-	var knob := hub+deflection*(REIN_RADIUS-18)
-	draw_circle(knob,19,INK,true,-1,true)
-	draw_arc(knob,19,0,TAU,36,GOLD,2,true)
-	diamond(knob,5,GOLD)
-	var gallop := "PUSH TO GALLOP" if on_touch else "W / SPACE   GALLOP"
-	var steer := "DRAG TO STEER" if on_touch else "A / D   STEER"
-	plate(Rect2(hub.x-84,hub.y-104,168,29),Color("#192831e8"))
-	words(gallop,hub.x-84,hub.y-84,14,PAPER,bold,HORIZONTAL_ALIGNMENT_CENTER,168)
-	plate(Rect2(hub.x-84,hub.y+72,168,29),Color("#192831e8"))
-	words(steer,hub.x-84,hub.y+92,14,PAPER,bold,HORIZONTAL_ALIGNMENT_CENTER,168)
+# Origins are in viewport coordinates, just like the captured touch events.
+func touch_pad(origin_px: Vector2, displacement: Vector2, tint: Color):
+	var hub := local_ui(origin_px)
+	var knob := hub+displacement.limit_length(1.0)*(PAD_RADIUS-14)
+	draw_circle(hub,PAD_RADIUS,Color("#14232b45"),true,-1,true)
+	draw_arc(hub,PAD_RADIUS,0,TAU,48,Color(tint,.68),2,true)
+	line(hub,knob,Color(tint,.66),2)
+	draw_circle(knob,14,Color("#18242c88"),true,-1,true)
+	draw_arc(knob,14,0,TAU,32,tint,2,true)
 
 func shield_sight():
 	var d = g.duel
@@ -194,7 +180,9 @@ func shield_sight():
 			line(tip+dir*5,tip+dir*13,INK,5)
 			line(tip+dir*5,tip+dir*13,PAPER,2.5)
 		diamond(tip,2.5,PAPER)
-	var prompt := "HOLD ON SHIELD" if on_touch else "HOLD CLICK ON SHIELD"
+	if not down and on_touch:
+		return
+	var prompt := "HOLD CLICK ON SHIELD"
 	if down:
 		prompt = "ON TARGET" if aligned else "AIM AT SHIELD"
 	var tag := Vector2(center.x,center.y-radius-28)
@@ -207,15 +195,27 @@ func live():
 	rider_panel(true)
 	var cx := bounds.x*.5
 	plate(Rect2(cx-102,17,204,72),Color("#192831ee"))
-	centered("SUDDEN DEATH" if d.pass_no==4 else "PASS  %d  /  3" % d.pass_no,43,17,GOLD,bold)
-	centered("%d   ◆   %d" % [d.points[0],d.points[1]],74,23,PAPER,TITLE)
+	centered("FINAL PASS" if d.pass_no==d.MAX_PASSES else "PASS  %d  /  3" % d.pass_no,43,17,GOLD,bold)
+	centered("Clean hit unseats" if d.pass_no==d.MAX_PASSES else "Crown challenge",73,17,PAPER,TITLE)
 	if g.phase == "follow":
 		var hit: Dictionary = d.events.back().hits[0]
 		plate(Rect2(cx-166,bounds.y*.22,332,65),INK)
-		centered(hit.grade.to_upper()+" STRIKE",bounds.y*.22+42,30,GOLD,TITLE)
+		var impact: Dictionary = d.events.back()
+		var callout: String = hit.grade.to_upper()+" STRIKE"
+		if d.seat.min()==0:
+			callout = "DOUBLE FALL" if d.seat.max()==0 else "UNSEATED"
+		elif d.seat[1]<=d.STRAP_BREAK and impact.seat_before[1]>d.STRAP_BREAK:
+			callout = "RIVAL STRAP BROKEN"
+		elif d.seat[0]<=d.STRAP_BREAK and impact.seat_before[0]>d.STRAP_BREAK:
+			callout = "YOUR STRAP BROKEN"
+		centered(callout,bounds.y*.22+42,25,GOLD,TITLE)
 		return
-	draw_reins()
 	shield_sight()
+	if g.drive_finger>=0:
+		touch_pad(g.rein_origin,g.touch_reins,GOLD)
+	if g.aim_finger>=0:
+		var delta: Vector2 = (g.aim_last_touch-g.aim_origin)/(scale_ui*PAD_RADIUS)
+		touch_pad(g.aim_origin,delta,PAPER)
 	var eta: float = d.eta()
 	if eta<2.5:
 		var tell := "FRILL GUARD" if d.guard_ready() else "RIVAL CHARGING"
@@ -235,16 +235,21 @@ func summary():
 	centered("PASS  %d   •   %s" % [d.pass_no,g.surface.to_upper()],y+86,16,GOLD,bold)
 	var headline: String = d.result if d.result else e.hits[0].grade+" strike"
 	centered(headline,y+151,49,PAPER,TITLE)
-	centered(d.verdict if d.result else ("Sudden death ahead" if d.pass_no==3 else "Both knights stay mounted"),y+186,19,FADE)
+	centered(d.verdict if d.result else "Both knights stay mounted",y+186,19,FADE)
 	line(Vector2(x+33,y+210),Vector2(x+487,y+210),Color("#80785f"))
 	for i in 2:
 		var yy := y+244+i*82
 		var color := Color("#e78a78") if i==0 else Color("#92b7ec")
 		words("EMBER" if i==0 else "AZURE",x+36,yy,16,color,bold)
-		words("%s  ·  +%d points" % [e.hits[i].grade,e.hits[i].points],x+148,yy,20,PAPER,bold)
+		words(e.hits[i].grade+" strike",x+148,yy,20,PAPER,bold)
 		words("%s  ·  %s" % [e.hits[i].reason,e.beast[i]],x+36,yy+28,17,FADE)
 		words("Seat %d → %d   /   Impact %d km/h" % [e.seat_before[i],e.seat_after[i],roundi(e.speed[i]*3.6)],x+36,yy+51,15,FADE)
 	line(Vector2(x+33,y+388),Vector2(x+487,y+388),Color("#80785f"))
-	centered("Lance points      %d  —  %d" % [d.points[0],d.points[1]],y+421,22,GOLD,TITLE)
+	var notice := "Unseat the Warden to take the crown"
+	if d.result:
+		notice = "The crown is yours" if d.result=="Victory" else "The Warden keeps the crown"
+	elif d.pass_no==2:
+		notice = "Final pass · a clean hit unseats"
+	centered(notice,y+421,19,GOLD,TITLE)
 	button("next",Rect2(x+36,y+447,295,56),"Ride again    ›" if d.result else "Next pass    ›",true)
 	button("menu",Rect2(x+345,y+447,139,56),"The lists")
